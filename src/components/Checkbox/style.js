@@ -7,7 +7,7 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
     height: 3vh;
-    width: 3%;
+    width: 30px;
 
     background: ${({theme, isActive}) => isActive ? theme.COLOR.BLUE_200 : "none"};
     border-color:  ${({theme, isActive}) => !isActive ? "#000" : "none"};

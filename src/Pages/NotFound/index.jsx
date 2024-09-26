@@ -1,10 +1,10 @@
 import { Container } from "./style";
 
-export default function Add() {
+export default function NotFound() {
 
     return (
         <Container>
-            <h1>alo</h1>
+            <h1>Pagina não achada volte</h1>
         </Container>
     )
 }

@@ -6,6 +6,12 @@ import {api} from "../../service/api"
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import CheckBox from "../../components/Checkbox";
+import { MdOutlineAlternateEmail } from "react-icons/md";
+import { FaLock } from "react-icons/fa";
+import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
+
+
+
 
 export default function SignUp() {
 
@@ -13,6 +19,10 @@ export default function SignUp() {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [role, setRole] = useState(false);
+
+    const [inputEmail, setInputEmail] = useState(false);
+    const [inputPassword, setInputPassword] = useState(false);
+    const [inputName, setInputName] = useState(false)
 
 
     const navigate = useNavigate()
@@ -46,11 +56,11 @@ export default function SignUp() {
                 <h2>Criar sua conta</h2>
 
                 <div>
-                    <InputForm placeholder="Seu nome..." onChange={e => setName(e.target.value)} />
+                    <InputForm placeholder="Seu nome..." onChange={e => setName(e.target.value)} icon={MdOutlineDriveFileRenameOutline} onClick={e => setInputName(!inputName)} onBlur={e => setInputName(!inputName)}  isActive={inputName}/>
+                    
+                    <InputForm placeholder="Seu email..." onChange={e => setEmail(e.target.value)} icon={MdOutlineAlternateEmail} onClick={e => setInputEmail(!inputEmail)} onBlur={e => setInputEmail(!inputEmail)}  isActive={inputEmail}/>
 
-                    <InputForm placeholder="Seu email..." onChange={e => setEmail(e.target.value)} />
-
-                    <InputForm placeholder="Sua senha..." onChange={e => setPassword(e.target.value)} />
+                    <InputForm placeholder="Sua senha..." onChange={e => setPassword(e.target.value)} icon={FaLock} onClick={e => setInputPassword(!inputPassword)} onBlur={e => setInputPassword(!inputPassword)}  isActive={inputPassword}/>
 
                     <div className="checkbox">
                         <CheckBox isActive={role} onClick={e => setRole(!role)} />

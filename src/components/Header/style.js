@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Container = styled.header`
-    background: #c51e1e;
+    background-color: #8EC5FC;
+        background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
 
     > nav {
         width: min(180rem, 90%);
@@ -37,7 +38,8 @@ export const Container = styled.header`
 `
 
 export const Navigation = styled(Link)`
-    background: #fff;
+
+    background: rgba(100,100,100, 0.5);
     padding: 1rem 2rem;
     border-radius: 1rem;
     cursor: pointer;
