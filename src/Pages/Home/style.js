@@ -57,6 +57,7 @@ export const Container = styled.div`
 
 export const Image = styled.img`
     border-radius: 2rem;
+    background-position: center center;
 
     @media (max-width: 1000px) {
         width: 100%;
