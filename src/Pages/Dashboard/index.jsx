@@ -1,8 +1,11 @@
 import Header from "../../components/Header";
 import { Container } from "./style";
 
+import { useAuth } from "../../hooks/auth";
 
 export default function DashBoard() {
+
+    const {user} = useAuth()
 
     return (
         <Container>

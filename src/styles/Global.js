@@ -15,6 +15,9 @@ export default createGlobalStyle`
 
     h1 {
         font-size: 3rem;
+        color: #0b4f76;
+        font-weight: 800;
+        line-height: 3.4rem;
     }
 
     h2 {

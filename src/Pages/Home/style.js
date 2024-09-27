@@ -1,5 +1,88 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.div`
+
+
+    > main {
+        > section {
+            padding-top: 10rem;
+            margin-bottom: 2rem;
+        }
     
+        > section:nth-child(1) {
+            background: #f9f3f3;
+            display: flex;
+    
+            > div {
+                display: flex;
+                justify-content: space-between;
+    
+                > div:nth-child(1) {
+                    display: flex;
+                    flex-direction: column;
+                    width: 50%;
+                    padding-top: 10rem;
+                    gap: 1rem;
+    
+                    > p {
+                        font-size: 1.6rem;
+                        line-height: 1.7rem;
+                        margin: 1rem 0;
+                    }
+                }
+                @media (max-width:900px) {
+                    flex-direction: column;
+
+                    
+                    > div:nth-child(1) {
+                        width: 100%;
+                        margin-bottom: 2rem;
+                    }
+
+
+
+                }
+            }    
+            }
+
+    
+        > section:nth-child(2) {
+            background: #000;
+            color: #fff;
+            height: 50vh;
+        }
+    }
+`
+
+export const Image = styled.img`
+    border-radius: 2rem;
+
+    @media (max-width: 1000px) {
+        width: 100%;
+    }
+`
+
+
+export const RegisterNavigation = styled(Link)`
+
+    text-decoration: none;
+    background: rgba(30,141,204, 0.5);
+    border-radius: 1rem;
+    padding: 1rem 3rem;
+    font-weight: 600;
+    color: #000;
+    
+    `
+
+export const SignInNavigation = styled(Link)`
+    padding: 1rem 3rem;
+    font-weight: 600;
+    color: #000;
+
+`
+
+export const ButtonsDiv = styled.div`
+    display: flex;
+    gap: 1rem;
 `

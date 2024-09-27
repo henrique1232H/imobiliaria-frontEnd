@@ -21,10 +21,6 @@ export default function Header() {
                         </div>
                     </li>
 
-                    <li>
-                        <Input placeholder="Pesquisar" icon={CiSearch} onFocus={e => setInput(!input)} isActive={input} onBlur={e => setInput(!input)}/>
-                    </li>
-
                     {
                         !user ? 
                         <li>
