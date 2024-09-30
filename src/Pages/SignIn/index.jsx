@@ -19,12 +19,14 @@ export default function SignUp() {
     const [inputPassword, setInputPassword] = useState(false)
 
     const {signIn} = useAuth();
+    const navigate = useNavigate()
 
 
     const handleEnterUser = async (e) => {
         e.preventDefault();
 
         signIn({email, password});
+        navigate("/")
 
         
     }
@@ -39,9 +41,9 @@ export default function SignUp() {
                 <h2>Logar na sua conta</h2>
 
                 <div>
-                    <InputForm placeholder="Seu email..." onChange={e => setEmail(e.target.value)} icon={MdOutlineAlternateEmail} onClick={e => setInputEmail(!inputEmail)} onBlur={e => setInputEmail(!inputEmail)}  isActive={inputEmail}/>
+                    <InputForm placeholder="Seu email..." type="email" onChange={e => setEmail(e.target.value)} icon={MdOutlineAlternateEmail} onClick={e => setInputEmail(!inputEmail)} onBlur={e => setInputEmail(!inputEmail)}  isActive={inputEmail}/>
 
-                    <InputForm placeholder="Sua senha..." onChange={e => setPassword(e.target.value)} icon={FaLock} onClick={e => setInputPassword(!inputPassword)} onBlur={e => setInputPassword(!inputPassword)}  isActive={inputPassword}/>
+                    <InputForm placeholder="Sua senha..." onChange={e => setPassword(e.target.value)} icon={FaLock} onClick={e => setInputPassword(!inputPassword)} onBlur={e => setInputPassword(!inputPassword)}  isActive={inputPassword} type="password"/>
 
 
                     <div>

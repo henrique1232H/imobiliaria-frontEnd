@@ -56,11 +56,11 @@ export default function SignUp() {
                 <h2>Criar sua conta</h2>
 
                 <div>
-                    <InputForm placeholder="Seu nome..." onChange={e => setName(e.target.value)} icon={MdOutlineDriveFileRenameOutline} onClick={e => setInputName(!inputName)} onBlur={e => setInputName(!inputName)}  isActive={inputName}/>
+                    <InputForm placeholder="Seu nome..." type="text" onChange={e => setName(e.target.value)} icon={MdOutlineDriveFileRenameOutline} onClick={e => setInputName(!inputName)} onBlur={e => setInputName(!inputName)}  isActive={inputName}/>
                     
-                    <InputForm placeholder="Seu email..." onChange={e => setEmail(e.target.value)} icon={MdOutlineAlternateEmail} onClick={e => setInputEmail(!inputEmail)} onBlur={e => setInputEmail(!inputEmail)}  isActive={inputEmail}/>
+                    <InputForm placeholder="Seu email..." type="email" onChange={e => setEmail(e.target.value)} icon={MdOutlineAlternateEmail} onClick={e => setInputEmail(!inputEmail)} onBlur={e => setInputEmail(!inputEmail)}  isActive={inputEmail}/>
 
-                    <InputForm placeholder="Sua senha..." onChange={e => setPassword(e.target.value)} icon={FaLock} onClick={e => setInputPassword(!inputPassword)} onBlur={e => setInputPassword(!inputPassword)}  isActive={inputPassword}/>
+                    <InputForm placeholder="Sua senha..." type="password" onChange={e => setPassword(e.target.value)} icon={FaLock} onClick={e => setInputPassword(!inputPassword)} onBlur={e => setInputPassword(!inputPassword)}  isActive={inputPassword}/>
 
                     <div className="checkbox">
                         <CheckBox isActive={role} onClick={e => setRole(!role)} />

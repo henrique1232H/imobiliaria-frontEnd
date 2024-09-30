@@ -7,7 +7,7 @@ export const Container = styled.div`
     > main {
         > section {
             padding-top: 10rem;
-            margin-bottom: 2rem;
+            padding-bottom: 2rem;
         }
     
         > section:nth-child(1) {
@@ -48,9 +48,37 @@ export const Container = styled.div`
 
     
         > section:nth-child(2) {
-            background: #000;
+            background: #0d1a21;
             color: #fff;
-            height: 50vh;
+            height: auto;
+            padding-bottom: 2rem;
+
+            > div {
+                > ul {
+
+                    margin-top: 2rem;
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 1rem;
+                    
+                    > li {
+                        border-radius: 1rem;
+                        height: 50rem;
+                        padding: 1rem 2rem;
+                        list-style: none;
+                        background: linear-gradient(#195171, #0d1a21);
+                    }
+
+                    @media (max-width:900px) {
+                        grid-template-columns:  repeat(1, 1fr);
+                        gap: 3rem;
+
+
+                    }
+
+                }
+
+            }
         }
     }
 `

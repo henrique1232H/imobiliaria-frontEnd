@@ -38,22 +38,22 @@ function AuthProvider({children}) {
     }
     
     
-    // useEffect(() => {
-    //     const token = localStorage.getItem("@fotop:token");
-    //     const user = localStorage.getItem("@fotop:user");
+    useEffect(() => {
+        const token = localStorage.getItem("@fotop:token");
+        const user = localStorage.getItem("@fotop:user");
 
-    //     if(token && user) {
-    //         api.defaults.headers.common[`Authorization`] = `Bearer ${token}`;
+        if(token && user) {
+            api.defaults.headers.common[`Authorization`] = `Bearer ${token}`;
 
-    //         setData({
-    //             token,
-    //             user: JSON.parse(user)
-    //         })
-    //     }
+            setData({
+                token,
+                user: JSON.parse(user)
+            })
+        }
 
 
         
-    // }, []);
+    }, []);
     
     return (
         <AuthContext.Provider value={{signIn, signOut, user: data.user}}>

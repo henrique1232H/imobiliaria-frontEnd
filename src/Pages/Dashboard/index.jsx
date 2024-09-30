@@ -3,6 +3,8 @@ import { Container } from "./style";
 
 import { useAuth } from "../../hooks/auth";
 
+import Section from "../../components/Section"
+
 export default function DashBoard() {
 
     const {user} = useAuth()
@@ -12,12 +14,19 @@ export default function DashBoard() {
 
             <Header/>
 
-            <div>
-                <h1>Vamos começar a trabalhar</h1>
-                <h2>
-                    as
-                </h2>
-            </div>
+
+            <main>
+                <Section>
+
+                    <div>
+
+                        <h1>Vamos começar a trabalhar</h1>
+                        
+                        
+                    </div>
+                </Section>
+            </main>
+
         </Container>
     )
 }

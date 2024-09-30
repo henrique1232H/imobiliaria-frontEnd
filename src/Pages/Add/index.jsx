@@ -1,10 +1,20 @@
-import { Container } from "./style";
+import { Container, Form } from "./style";
+import InputForm from "../../components/InputForm"
 
 export default function Add() {
 
     return (
         <Container>
-            <h1>alo</h1>
+            <main>
+                <h1>Vamos criar um novo trabalho</h1>
+
+                <Form>
+                    <div>
+                        <InputForm />
+                    </div>
+
+                </Form>
+            </main>
         </Container>
     )
 }
