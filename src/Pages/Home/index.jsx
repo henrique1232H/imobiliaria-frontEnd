@@ -8,6 +8,7 @@ import {
 import Header from "../../components/Header";
 import Section from "../../components/Section";
 import { Link } from "react-router-dom";
+import Footer from "../../components/Footer";
 
 export default function Home() {
   return (
@@ -68,9 +69,13 @@ export default function Home() {
         </Section>
 
         <Section>
-            
+          <div>
+            <h2>alo</h2>
+          </div>
         </Section>
       </main>
+
+      <Footer />
     </Container>
   );
 }
