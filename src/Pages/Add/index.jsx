@@ -1,7 +1,13 @@
 import { Container, Form } from "./style";
 import InputForm from "../../components/InputForm"
+import { useState } from "react";
 
 export default function Add() {
+
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [tags, setTags] = useState("");
+    
 
     return (
         <Container>
@@ -10,7 +16,7 @@ export default function Add() {
 
                 <Form>
                     <div>
-                        <InputForm />
+                        <input placeholder="Nome" />
                     </div>
 
                 </Form>

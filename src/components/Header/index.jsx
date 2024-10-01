@@ -6,6 +6,8 @@ import { useAuth } from "../../hooks/auth";
 import { USER_ROLE} from "../../utils/roles";
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoMdExit } from "react-icons/io";
+import AlertDialog from "../AlertDialog";
+import AlertDialogExit from "../AlertDialog";
 
 
 
@@ -14,7 +16,6 @@ export default function Header() {
     const [input, setInput] = useState(false);
     const {user, signOut} = useAuth();
 
-    
 
     return (
         <Container>
@@ -51,9 +52,7 @@ export default function Header() {
                                    <FaRegUserCircle fontSize={20}/>
                                 </Navigation>
 
-                                <Navigation to="/" onClick={signOut}>
-                                    <IoMdExit  fontSize={20} color="#990c0c"/>
-                                </Navigation>
+                                <AlertDialogExit />
                             </li>
                         :
 
@@ -63,9 +62,7 @@ export default function Header() {
                                    <FaRegUserCircle fontSize={20}/>
                                 </Navigation>
 
-                                <Navigation to="/" onClick={signOut}>
-                                    <IoMdExit  fontSize={20} color="#990c0c"/>
-                                </Navigation>
+                                <AlertDialogExit/>
 
                             </li>
                         

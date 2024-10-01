@@ -7,16 +7,21 @@ import Button from "../../components/Button";
 import { useAuth } from "../../hooks/auth";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
+import AppError from "../../components/AppError";
+import GoBack from "../../components/Back";
 
 
 
 export default function SignUp() {
 
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const [inputEmail, setInputEmail] = useState(false);
-    const [inputPassword, setInputPassword] = useState(false)
+    const [inputPassword, setInputPassword] = useState(false);
+
+    const [error, setError] = useState(false)
+    const [errorName, setErrorName] = useState("")
 
     const {signIn} = useAuth();
     const navigate = useNavigate()
@@ -25,10 +30,21 @@ export default function SignUp() {
     const handleEnterUser = async (e) => {
         e.preventDefault();
 
+        if(email === "" || password === "") {
+            setError(!error);
+            setErrorName("Você esqueceu de digitar nos campos")    
+        
+           return 
+        }
+
         signIn({email, password});
         navigate("/")
 
         
+    }
+
+    const handleBack = () => {
+        navigate("/")
     }
 
     return (
@@ -37,6 +53,12 @@ export default function SignUp() {
 
             <Form>
 
+
+                {
+                    error && <AppError text={errorName}/>
+                }
+
+                <GoBack onClick={handleBack}/>
                 <h1>fotop</h1>
                 <h2>Logar na sua conta</h2>
 
