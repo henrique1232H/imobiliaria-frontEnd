@@ -51,13 +51,15 @@ export default function SignUp() {
         } else {
             custom = "admin"
         }
-
-        const response = await api.post("/auth", {name, password, email,role: custom});
-
-        console.log(response)
         
-        alert(response.data.message)
-        navigate("/signIn")
+
+        try {
+            await api.post("/auth", {name, password, email, role: custom});
+            navigate("/signIn");
+
+        } catch (err) {
+            setErrorName(err.response.data.message)
+        }
     }
 
     const handleBack = () => {

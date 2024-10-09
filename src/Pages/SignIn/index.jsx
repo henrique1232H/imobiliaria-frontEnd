@@ -37,6 +37,8 @@ export default function SignUp() {
            return 
         }
 
+        
+
         signIn({email, password});
         navigate("/")
 

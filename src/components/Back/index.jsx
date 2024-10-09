@@ -6,7 +6,7 @@ export default function GoBack({...rest}) {
 
 
     return (
-        <Container {...rest}>
+        <Container to="/" {...rest}>
             <IoMdArrowBack fontSize={20} />
         </Container>
     )

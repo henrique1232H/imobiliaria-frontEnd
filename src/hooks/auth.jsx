@@ -12,15 +12,9 @@ function AuthProvider({children}) {
     async function signIn({email, password}) {
         
         try {
-            const response = await api.post("/sessions", {email,password}, {
-                withCredentials: true,
-                
-            });
-
+            const response = await api.post("/sessions", {email,password}, {withCredentials: true});
             const user = response.data;
-            
             localStorage.setItem("@fotop:user", JSON.stringify(user));
-            
             setData({user});
         } catch(err) {
             if(err.response) {
@@ -42,9 +36,7 @@ function AuthProvider({children}) {
 
         try {
             const user = localStorage.getItem("@fotop:user");
-    
-            console.log(user)
-    
+
             if(user) {
                 setData({
                     user: JSON.parse(user)

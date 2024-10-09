@@ -31,9 +31,9 @@ export const Content = styled(AlertDialog.Content)`
     justify-content: center;
 
     > div {
-        height: 30vh;
+        height: auto;
         background: #fff;
-        width: 25%;
+        width: auto;
         display: flex;
         flex-direction: column;
         justify-content: center;
