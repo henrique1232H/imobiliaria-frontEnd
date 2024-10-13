@@ -11,20 +11,29 @@ import CardJobs from "../../components/CardJobs";
 export default function DashBoard() {
 
     const {user} = useAuth()
-    const [data, setData] = useState([])
+    const [data, setData] = useState([]);
+    const [photos, setPhotos] = useState([]);
+    const [imageUrl, setImageUrl] = useState("")
 
     useEffect(() => {
         async function handleSearchJobs() {
             const response = await api.get("/jobs", {withCredentials: true})
-            
+                        
             setData(response.data);
         }
 
+        async function handleSearchPhotosJob() {
+            const response = await api.get("/files/1",{withCredentials: true});
+
+            setPhotos(response.data);
+        }
+
         handleSearchJobs()
+        handleSearchPhotosJob()
 
     },[])
     
-    console.log(data)
+    console.log(photos);
     return (
         <Container>
 
@@ -40,8 +49,8 @@ export default function DashBoard() {
 
 
                         {
-                            data.map((entries) => {
-                                return <CardJobs key={entries.id} title={entries.title} description={entries.description} localization={entries.localization} />
+                            data.map((entries, key) => {
+                                return <CardJobs key={entries.id} title={entries.title} description={entries.description} localization={entries.localization} img={photos}/>
                             })
                         }
                         
