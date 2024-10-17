@@ -29,9 +29,30 @@ export const Main = styled.main`
             }
 
 
+
             > section:nth-child(3) {
                 display: flex;
                 justify-content: space-between;
+                
+                > div > div > h4 {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 1rem;
+                    
+                    > span {
+
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+
+                        > img {
+                            height: 5rem;
+                            border-radius: 50rem;
+                        }
+                    } 
+                    
+                    
+                }
             }
 
             > section:nth-child(5) {

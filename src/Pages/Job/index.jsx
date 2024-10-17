@@ -9,18 +9,22 @@ import Carousel from "react-multi-carousel";
 import responsiveCarousel from "../../components/responsiveCarousel";
 import 'react-multi-carousel/lib/styles.css';
 import CarouselCard from "../../components/carouselCard";
+import { useAuth } from "../../hooks/auth";
 
 export default function Job() {
+
+    const {user} = useAuth()
 
     const [title, setTitle] = useState();
     const [description, setDescription] = useState("");
     
     const [city, setCity] = useState("");
     const [district, setDistrict] = useState("");
-    const [state, setState] = useState("")
-    const [street, setStreet] =  useState("")
+    const [state, setState] = useState("");
+    const [street, setStreet] =  useState("");
 
-    const [owned, setOwned] = useState(true)
+    const [userJob, setUserJob] = useState({});
+    
 
     const [images, setImages] = useState([]);
 
@@ -33,14 +37,15 @@ export default function Job() {
 
             const response = await api.get(`/jobs${query}`, {withCredentials: true})
 
+            setTitle(response.data[0].title);
+            setDescription(response.data[0].description);
 
-            setTitle(response.data.title);
-            setDescription(response.data.description);
+            setDistrict(response.data[0].district);
+            setCity(response.data[0].city);
+            setStreet(response.data[0].street);
+            setState(response.data[0].state);
 
-            setDistrict(response.data.district);
-            setCity(response.data.city);
-            setStreet(response.data.street);
-            setState(response.data.state);
+            setUserJob(response.data[1])
             
         }
 
@@ -54,7 +59,6 @@ export default function Job() {
     }, [])
 
     const header = images[0];
-
 
     return (
         <Container>
@@ -81,22 +85,27 @@ export default function Job() {
                                 <h1>{title}</h1>
 
                                 <div>
-                                    <h4>Criado por</h4>
-                                    <img src="" alt="" />
-                                    <h4> {} </h4>
+                                    <h4>Criado por:
+                                        <span>
+                                             <img src="http://github.com/henrique1232H.png" />
+                                             {userJob.name}
+                                        </span> 
+                                    
+                                    </h4>
                                 </div>
 
-                                <h2>Criado por {}</h2>
 
                                 <p> {description} </p>
                             </div>
 
                             <div>
                                 {
-                                    !owned ? <a href="#">Compartilhar</a> :
-                                    <Link to="/edit"> 
+                                    userJob.id === user.id ? 
+                                     <Link to="/edit"> 
                                         Editar trabalho
                                     </Link>
+                                     :
+                                    <a href="#">Compartilhar</a>
                                 }
                                 
                             </div>
