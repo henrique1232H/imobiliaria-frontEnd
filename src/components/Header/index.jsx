@@ -8,6 +8,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { IoMdExit } from "react-icons/io";
 import AlertDialog from "../AlertDialog";
 import AlertDialogExit from "../AlertDialog";
+import { Link } from "react-router-dom";
 
 
 
@@ -23,7 +24,9 @@ export default function Header() {
                 <ul>
                     <li>
                         <div>
-                            <h1>fotop</h1>
+                            <Link to="/">
+                                <h1>fotop</h1>
+                            </Link>
                         </div>
                     </li>
 
@@ -44,11 +47,15 @@ export default function Header() {
                         [USER_ROLE.ADMIN].includes(user.role) ?
                             <li>
 
+                                <Navigation to="/search">
+                                    Procurar trabalhos
+                                </Navigation>
+
                                 <Navigation to="/add">
                                     Adicionar um novo trabalho
                                 </Navigation>
 
-                                <Navigation to="/perfil">
+                                <Navigation to="/profile">
                                    <FaRegUserCircle fontSize={20}/>
                                 </Navigation>
 
@@ -58,7 +65,15 @@ export default function Header() {
 
                         [USER_ROLE.CUSTOMER].includes(user.role) &&
                             <li>
-                                <Navigation to="/perfil">
+                                <Navigation to="/search">
+                                    Procurar trabalhos
+                                </Navigation>
+                                
+                                <Navigation to="/add">
+                                    Adicionar um novo trabalho
+                                </Navigation>
+
+                                <Navigation to="/profile">
                                    <FaRegUserCircle fontSize={20}/>
                                 </Navigation>
 

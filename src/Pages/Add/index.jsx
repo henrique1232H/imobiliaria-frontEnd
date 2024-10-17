@@ -10,7 +10,11 @@ export default function Add() {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [localization, setLocalization] = useState("");
+
+    const [city, setCity] = useState("");
+    const [district, setDistrict] = useState("");
+    const [state, setState] = useState("")
+    const [street, setStreet] =  useState("")
 
     const [tags, setTags] = useState([]);
     const [newTag, setNewTag] = useState("")
@@ -38,7 +42,10 @@ export default function Add() {
         formData.append("job", JSON.stringify({
             title,
             description,
-            localization,
+            city,
+            district,
+            state,
+            street,
             tags
         }));
 
@@ -78,14 +85,33 @@ export default function Add() {
                     </div>
 
                     <div>
-                        <label htmlFor="localization">Localização do Trabalho</label>
-                        <input id="localization" type="text" placeholder="Localização do lugar onde foi tirado as fotos" onChange={e => setLocalization(e.target.value)}/>
+                        <label htmlFor="street">Rua</label>
+                        <input id="street" placeholder="rua:" type="text" onChange={e => setStreet(e.target.value)}/>
                     </div>
+
+                    <div>
+                        <label htmlFor="city">Cidade</label>
+                        <input id="city" placeholder="São Paulo, Campinas..." type="text" onChange={e => setCity(e.target.value)}/>
+                    </div>
+
+                    <div>
+                        <label htmlFor="district"> Bairro</label>
+                        <input placeholder="piratininga, etc ..." id="district" type="text" onChange={e => setDistrict(e.target.value)}/>
+                    </div>
+
+                    <div>
+                        <label htmlFor="state">Estado</label>
+                        <input id="state" placeholder="São Paulo, Minas gerais..." type="text" onChange={e => setState(e.target.value)}/>
+                    </div>
+
+
 
                     <div>
                         <label htmlFor="">Imagens do trabalho</label>
                         <input type="file" name="" id=""  multiple onChange={e => setImages(prevState => [...prevState, e.target.files])}/>
                     </div>
+
+
 
                     <div> 
                         <TagItem 

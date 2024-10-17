@@ -22,18 +22,15 @@ export default function DashBoard() {
             setData(response.data);
         }
 
-        async function handleSearchPhotosJob() {
-            const response = await api.get("/files/1",{withCredentials: true});
-
-            setPhotos(response.data);
-        }
-
+        
         handleSearchJobs()
-        handleSearchPhotosJob()
 
+        
     },[])
     
-    console.log(photos);
+    
+
+    
     return (
         <Container>
 
@@ -47,10 +44,13 @@ export default function DashBoard() {
 
                         <h1>Vamos começar a trabalhar</h1>
 
+                        <h2>Seus trabalhos</h2>
+
 
                         {
                             data.map((entries, key) => {
-                                return <CardJobs key={entries.id} title={entries.title} description={entries.description} localization={entries.localization} img={photos}/>
+
+                                return <CardJobs key={key} link={entries.id} title={entries.title} description={entries.description} localization={entries.localization} img={photos}/>
                             })
                         }
                         

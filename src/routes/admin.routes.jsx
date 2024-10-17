@@ -7,7 +7,7 @@ import Profile from "../Pages/Profile";
 import Search from "../Pages/Search";
 import NotFound from "../Pages/NotFound";
 
-export default function CustomerRoutes() {
+export default function AdminRoutes() {
 
     return (
         <Routes>
