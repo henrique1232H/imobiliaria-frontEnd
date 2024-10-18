@@ -12,15 +12,10 @@ function AuthProvider({children}) {
     async function signIn({email, password}) {
         
         try {
-            const response = await api.post("/sessions", {email,password});
-            const {user, token} = response.data;
-            
+            const response = await api.post("/sessions", {email,password}, {withCredentials: true});
+            const user = response.data;
             localStorage.setItem("@fotop:user", JSON.stringify(user));
-            localStorage.setItem("@fotop:token", token);
-            
-            api.defaults.headers.common[`Authorization`] = `Bearer ${token}`;
-            
-            setData({user, token});
+            setData({user});
         } catch(err) {
             if(err.response) {
                 alert(err.response.data.message);
@@ -32,23 +27,24 @@ function AuthProvider({children}) {
     
     async function signOut() {
         localStorage.removeItem("@fotop:user");
-        localStorage.removeItem("@fotop:token")
         
         setData({})
     }
     
     
     useEffect(() => {
-        const token = localStorage.getItem("@fotop:token");
-        const user = localStorage.getItem("@fotop:user");
 
-        if(token && user) {
-            api.defaults.headers.common[`Authorization`] = `Bearer ${token}`;
+        try {
+            const user = localStorage.getItem("@fotop:user");
 
-            setData({
-                token,
-                user: JSON.parse(user)
-            })
+            if(user) {
+                setData({
+                    user: JSON.parse(user)
+                })
+            }
+
+        } catch (err) {
+            console.log(err)
         }
 
 

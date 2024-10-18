@@ -34,8 +34,8 @@ export const Container = styled.div`
 
     }
 
-
     @media (max-width: 1000px) {
+
         > div {
             display: none;
             background: none;
@@ -50,6 +50,7 @@ export const Form = styled.form`
     padding: 10rem 4rem;
     display: flex;
     flex-direction: column;
+    position: relative;
 
     .checkbox {
         display: flex;

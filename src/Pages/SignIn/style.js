@@ -50,6 +50,7 @@ export const Form = styled.form`
     padding: 10rem 4rem;
     display: flex;
     flex-direction: column;
+    position: relative;
 
     .checkbox {
         display: flex;

@@ -2,12 +2,9 @@ import styled from "styled-components";
 
 export const Container = styled.div`
 
-    background: #f9f3f3;
-    height: 100vh;
+    > div {
+        width: min(180rem, 90%);
+        margin: 0 auto;
 
-
-    > main {
-        margin-top: 1rem;
     }
-
 `

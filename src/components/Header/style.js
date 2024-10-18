@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 export const Container = styled.header`
 
-    position: absolute;
-    top: 0;
+    display: flex;
     width: 100%;
+    background: #f9f3f3;
 
     > nav {
 
