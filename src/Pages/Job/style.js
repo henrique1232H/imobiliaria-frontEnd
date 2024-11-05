@@ -33,6 +33,7 @@ export const Main = styled.main`
             > section:nth-child(3) {
                 display: flex;
                 justify-content: space-between;
+
                 
                 > div > div > h4 {
                     display: inline-flex;
@@ -46,7 +47,7 @@ export const Main = styled.main`
                         gap: 1rem;
 
                         > img {
-                            height: 5rem;
+                            height: 4rem;
                             border-radius: 50rem;
                         }
                     } 
@@ -55,9 +56,20 @@ export const Main = styled.main`
                 }
             }
 
+            > section:nth-child(4) {
+                
+                > div {
+                    display: flex;
+                }
+            }
+
             > section:nth-child(5) {
                > h2 {
                 margin: 2rem 0;
+               }
+
+               > ul > li {
+                margin-left: 2rem;
                }
             }
 

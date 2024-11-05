@@ -35,8 +35,8 @@ export default function Add() {
         const formData = new FormData();
 
 
-        mapImages[0].forEach(image => {
-            formData.append("photos", image);
+        mapImages[0].forEach(files => {
+            formData.append("photos", files);
         })
         
         formData.append("job", JSON.stringify({
@@ -104,11 +104,11 @@ export default function Add() {
                         <input id="state" placeholder="São Paulo, Minas gerais..." type="text" onChange={e => setState(e.target.value)}/>
                     </div>
 
-
+                
 
                     <div>
-                        <label htmlFor="">Imagens do trabalho</label>
-                        <input type="file" name="" id=""  multiple onChange={e => setImages(prevState => [...prevState, e.target.files])}/>
+                        <label htmlFor="images">Imagens do trabalho</label>
+                        <input type="file" name="" id="images"  multiple onChange={e => setImages(prevState => [...prevState, e.target.files])}/>
                     </div>
 
 
@@ -123,7 +123,7 @@ export default function Add() {
 
                         {
                             tags.map((tag, key) => {
-                                return <TagItem key={key} isNew value={tag} onClick={e => handleRemoveTags(tag)}/>
+                                return <TagItem key={key} isNew value={tag} onClick={e => handleRemoveTags(tag)} />
                             })
 
                         }

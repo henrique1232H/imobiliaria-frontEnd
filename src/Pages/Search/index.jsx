@@ -3,6 +3,7 @@ import Header from "../../components/Header";
 import { Container } from "./style";
 import { api } from "../../service/api";
 import CardJobs from "../../components/CardJobs";
+import Footer from "../../components/Footer";
 
 
 export default function Search() {
@@ -14,13 +15,18 @@ export default function Search() {
     useEffect(() => {
         async function handleData() {
             const response = await api.get("/search", {withCredentials:true});
+            console.log(response.data)
 
             setData(response.data)
         }
 
         handleData()
 
-    }, [])
+    }, [input])
+
+
+
+    const icon = "http://github.com/henrique1232H.png"
 
     return (
         <Container>
@@ -34,19 +40,14 @@ export default function Search() {
 
                 <section>
                         {
-                            data.map((entries, key) => {
-                                return <CardJobs key={entries.id} link={entries.id} title={entries.title} description={entries.description} />
+                            data.map((entries) => {
+                                return <CardJobs key={entries.id} icon={icon} link={entries.id} title={entries.title} description={entries.description}  street={entries.street} district={entries.district} city={entries.city} user={entries.user}  tags={entries.tags} />
                             })
                         }
                 </section>
             </main>
 
-            
-
-
-
-
-
+            <Footer />
         </Container>
     )
 }

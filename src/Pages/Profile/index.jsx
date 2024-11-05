@@ -5,18 +5,23 @@ import { Container } from "./style";
 import { MdOutlineAddPhotoAlternate } from "react-icons/md";
 import { api } from "../../service/api";
 import CardJobs from "../../components/CardJobs";
-import { FaRegStar } from "react-icons/fa";
+import { FaRegStar, FaRegUserCircle } from "react-icons/fa";
 import { USER_ROLE } from "../../utils/roles";
+import Footer from "../../components/Footer";
 
 
 export default function Profile() {
 
     const {user} = useAuth();
-    const [job, setJob] = useState([])
+    const [job, setJob] = useState([]);
+
+    const [icon, setIcon] = useState()
 
     useEffect(() => {
         async function handleJob() {
-            const response = await api.get("/jobs", {withCredentials: true});
+            const response = await api.get("/search/user", {withCredentials: true});
+            console.log(response.data)
+
 
             setJob(response.data)
         }
@@ -24,9 +29,10 @@ export default function Profile() {
         handleJob()
     },[])
 
+    const handleIcon = async () =>{
+        console.log(icon[0])
 
-    console.log(job)
-
+    }
     return (
         <Container isAdmin={user.role}>
             <Header />
@@ -34,6 +40,7 @@ export default function Profile() {
             <main>
 
                 <div>
+
                     <img src="https://picsum.photos/1800/600" alt="" />
                 </div>
 
@@ -42,7 +49,11 @@ export default function Profile() {
                     <section>
 
                         <figure>
-                            <img src="http://github.com/henrique1232H.png" alt="foto de perfil" />
+                            {
+                                user.icon === "none" ? <div><FaRegUserCircle /> </div> : <img src="http://github.com/henrique1232H.png" alt="foto de perfil" />
+                            }
+                            
+                            <input id="picture" type="file" accept=".jpg" onChange={e => setIcon(e.target.files)} />
 
                             <label htmlFor="picture">
                                 <MdOutlineAddPhotoAlternate  fontSize={20}/>
@@ -76,8 +87,7 @@ export default function Profile() {
                         </ul>
 
 
-                        <input id="picture" type="file" accept=".jpg"/>
-
+                        <button onClick={handleIcon}>Salvar</button>
                     </section>
 
 
@@ -96,8 +106,8 @@ export default function Profile() {
 
 
                             {
-                                job.map((entries, key) => {
-                                    return <CardJobs key={key} link={entries.id} title={entries.title} description={entries.description} />
+                                job.map((entries) => {
+                                    return <CardJobs key={entries.id}  link={entries.id} title={entries.title} description={entries.description}  street={entries.street} district={entries.district} city={entries.city} user={entries.user}  tags={entries.tags} />
                                 })
                             }
                         </div>
@@ -109,6 +119,8 @@ export default function Profile() {
 
 
             </main>
+
+            <Footer />
         </Container>
     )
 }

@@ -2,11 +2,16 @@ import styled from "styled-components";
 import * as AlertDialog from "@radix-ui/react-alert-dialog"
 
 
+export const Root = styled(AlertDialog.Root)`
+    
+    `
+
 export const Trigger = styled(AlertDialog.Trigger)`
-    background: none;
     border: none;
     cursor: pointer;
-
+    padding: ${({isActive}) => isActive ? "1.2rem" : "none"};
+    border-radius: ${({isActive}) => isActive ? "1rem" : "none"};
+    font-weight: 500;
 `
 
 export const Overlay = styled(AlertDialog.Overlay)`

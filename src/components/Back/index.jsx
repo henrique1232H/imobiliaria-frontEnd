@@ -4,9 +4,15 @@ import { IoMdArrowBack } from "react-icons/io";
 
 export default function GoBack({...rest}) {
 
+    const navigate = useNavigate();
+
+    function back() {
+        navigate(-1)
+    }
+
 
     return (
-        <Container to="/" {...rest}>
+        <Container onClick={back} {...rest}>
             <IoMdArrowBack fontSize={20} />
         </Container>
     )

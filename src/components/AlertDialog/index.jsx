@@ -1,18 +1,17 @@
+/* eslint-disable react/prop-types */
 import * as AlertDialog from "@radix-ui/react-alert-dialog"
-import { IoMdExit } from "react-icons/io";
-import { Trigger, Overlay, Content } from "./styles";
-import { useAuth} from "../../hooks/auth"
+import { Trigger, Overlay, Content, Root } from "./styles";
 
 
+export default function Dialog({title,text,props,description, optionOne, optionTwo, action, icon: Icon, isActive = false}) {
 
-export default function AlertDialogExit() {
-
-    const {signOut } = useAuth();
 
     return (
-        <AlertDialog.Root>
-            <Trigger asChild>
-                <IoMdExit  fontSize={20} color="#990c0c"/>
+        <Root isActive={Boolean(isActive)}>
+            <Trigger asChild  isActive={Boolean(isActive)}>
+                {
+                    Icon ? <Icon fontSize={props.fontSize} color={props.color}/> : <p style={{background: props.color}}> {text} </p>
+                }
             </Trigger>
 
         <AlertDialog.Portal>
@@ -23,21 +22,22 @@ export default function AlertDialogExit() {
 
             <div>
                 <h1>
-                    Você quer realmente sair?
+                    {title}
                 </h1>
 
                 <p>
-                    Se você sair terá que fazer login de novo.
+                    {description}
                 </p>
 
                 
 
                 <div>
                     <AlertDialog.Cancel>
-                        Não quero sair
+                        {optionOne}
                     </AlertDialog.Cancel>
-                    <AlertDialog.Action onClick={signOut}>
-                        Desconectar da conta
+                    
+                    <AlertDialog.Action onClick={action} style={{background: props.colorButton}} >
+                        {optionTwo}
                     </AlertDialog.Action>
                 </div>
             </div>
@@ -45,6 +45,6 @@ export default function AlertDialogExit() {
 
           </Content>
         </AlertDialog.Portal>
-      </AlertDialog.Root>
+      </Root>
     )
 }

@@ -9,11 +9,11 @@ export default {
         },
         mobile: {
         breakpoint: {
-            max: 464,
+            max: 1600,
             min: 0
         },
-        items: 1,
-        partialVisibilityGutter: 30
+        items: 2,
+        partialVisibilityGutter: 50
         },
         tablet: {
         breakpoint: {
