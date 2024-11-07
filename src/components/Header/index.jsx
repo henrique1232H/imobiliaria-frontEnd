@@ -1,15 +1,22 @@
 import { Container, Navigation } from "./style";
-import { useState } from "react";
 import { useAuth } from "../../hooks/auth";
 import { USER_ROLE } from "../../utils/roles";
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoMdExit } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Dialog from "../AlertDialog";
 
 export default function Header() {
-  const [input, setInput] = useState(false);
+
+  const navigate = useNavigate();
   const { user, signOut } = useAuth();
+
+  const sign = () => {
+
+    signOut()
+    navigate("/")
+  }
+
 
   return (
     <Container>
@@ -45,7 +52,7 @@ export default function Header() {
                   props={{ fontSize: 20, color: "red" }}
                   title="Você quer realmente sair?"
                   description="Se você sair terá que fazer login de novo."
-                  action={signOut}
+                  action={sign}
                   optionOne="Não quero sair"
                   optionTwo="Desconectar da conta"
                 />
@@ -54,6 +61,8 @@ export default function Header() {
             [USER_ROLE.CUSTOMER].includes(user.role) && (
               <li>
                 <Navigation to="/search">Procurar trabalhos</Navigation>
+
+                <Navigation to="/jobInteressed">Trabalhos que você se candidatou</Navigation>
 
 
                 <Navigation to="/profile">

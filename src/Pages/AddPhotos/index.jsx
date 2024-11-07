@@ -6,7 +6,7 @@ import { api } from "../../service/api";
 import TagItem from "../../components/TagsItem";
 import { useNavigate } from "react-router-dom";
 
-export default function Add() {
+export default function AddPhotos() {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -18,6 +18,7 @@ export default function Add() {
 
     const [tags, setTags] = useState([]);
     const [newTag, setNewTag] = useState("")
+    const [images, setImages] = useState([]);
 
     const navigate = useNavigate()
     
@@ -25,8 +26,30 @@ export default function Add() {
     const handleEnterJob = async (e) => {
         e.preventDefault()
 
+
+        const mapImages = images.map(filename => {
+            const transformArray = Array.from(filename);
+            return transformArray
+        })
+
+        const formData = new FormData();
+
+
+        mapImages[0].forEach(files => {
+            formData.append("photos", files);
+        })
         
-        await api.post("/jobs", {title,description,city, district, state, street, tags}, {withCredentials: true})
+        formData.append("job", JSON.stringify({
+            title,
+            description,
+            city,
+            district,
+            state,
+            street,
+            tags
+        }));
+
+        await api.post("/jobs", formData, {withCredentials: true})
 
         navigate("/")
 
@@ -79,6 +102,13 @@ export default function Add() {
                     <div>
                         <label htmlFor="state">Estado</label>
                         <input id="state" placeholder="São Paulo, Minas gerais..." type="text" onChange={e => setState(e.target.value)}/>
+                    </div>
+
+                
+
+                    <div>
+                        <label htmlFor="images">Imagens do trabalho</label>
+                        <input type="file" name="" id="images"  multiple onChange={e => setImages(prevState => [...prevState, e.target.files])}/>
                     </div>
 
 

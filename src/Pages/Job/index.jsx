@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 
-import { Container, Main } from "./style";
+import { Container, Main, UserInteressed } from "./style";
 
 import responsiveCarousel from "../../components/responsiveCarousel";
-import 'react-multi-carousel/lib/styles.css';
+import "react-multi-carousel/lib/styles.css";
+
+import { GiConfirmed } from "react-icons/gi";
+import { MdOutlineRemoveCircleOutline } from "react-icons/md";
 
 import Tags from "../../components/Tags";
 import Footer from "../../components/Footer";
@@ -12,206 +15,346 @@ import GoBack from "../../components/Back";
 import CarouselCard from "../../components/carouselCard";
 import SpacingBox from "../../components/SpacingBox";
 
-
 import { api } from "../../service/api";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import { useAuth } from "../../hooks/auth";
+import { USER_ROLE } from "../../utils/roles";
+import MenuInteressed from "../../components/MenuInteressed";
+import Dialog from "../../components/AlertDialog";
+import IconUser from "../../components/IconUser";
 
 export default function Job() {
+  const { user } = useAuth();
+  const { job_id } = useParams();
+  const navigate = useNavigate()
 
-    const {user} = useAuth();
-    const {job_id} = useParams();
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState("");
 
-    const [title, setTitle] = useState();
-    const [description, setDescription] = useState("");
-    
-    const [city, setCity] = useState("");
-    const [district, setDistrict] = useState("");
-    const [state, setState] = useState("");
-    const [street, setStreet] =  useState("");
-    const [videos, setVideos] = useState([]);
+  const [city, setCity] = useState("");
+  const [district, setDistrict] = useState("");
+  const [state, setState] = useState("");
+  const [street, setStreet] = useState("");
+  const [videos, setVideos] = useState([]);
 
-    const [tags, setData] = useState([])
+  const [tags, setData] = useState([]);
 
-    const [userJob, setUserJob] = useState({});
-    
-    const [images, setImages] = useState([]);
+  const [userJob, setUserJob] = useState({});
 
-        
-    useEffect(() => {
-        console.log(job_id)
+  const [images, setImages] = useState([]);
 
-    
-        async function handleJob() {
-            const response = await api.get(`/jobs/${job_id}`, {withCredentials: true})
+  const [peopleInteressed, setPeopleInteressed] = useState([]);
 
-            setTitle(response.data[0].title);
-            setDescription(response.data[0].description);
+  const [isCandidate, setIsCandidate] = useState(false) 
 
-            setDistrict(response.data[0].district);
-            setCity(response.data[0].city);
-            setStreet(response.data[0].street);
-            setState(response.data[0].state);
+  useEffect(() => {
+    async function handleJob() {
+      const response = await api.get(`/jobs/${job_id}`, {
+        withCredentials: true,
+      });
 
-            setUserJob(response.data[1]);
+      console.log(response.data);
 
-            setData(response.data[2]);
-            
-        }
+      setTitle(response.data[0].title);
+      setDescription(response.data[0].description);
 
-        async function handleImage() {
-            const response = await api.get(`/file/${job_id}`, {withCredentials: true});
+      setDistrict(response.data[0].district);
+      setCity(response.data[0].city);
+      setStreet(response.data[0].street);
+      setState(response.data[0].state);
 
-            setVideos(response.data[0].videos)
-            setImages(response.data[0].images)
+      setUserJob(response.data[1]);
 
-        }
+      setData(response.data[2]);
+    }
 
-        handleJob()
-        handleImage()
-    }, [])
+    async function handleImage() {
+      const response = await api.get(`/file/${job_id}`, {
+        withCredentials: true,
+      });
 
-    const header = images[0];
+      setVideos(response.data[0].videos);
+      setImages(response.data[0].images);
+    }
 
-    return (
-        <Container>
-            <Header />
-            <Main>
-                <SpacingBox>
+    async function handlePeopleInteressedInJob() {
+
+      try {
+        const response = await api.get(`/jobsInteressed/${job_id}`, {
+          withCredentials: true,
+        });
+        setPeopleInteressed(response.data);
+      } catch (err) {
+        setIsCandidate(false)
+      }
+    }
+
+    async function checkIfUserIsAlreadyCandidate() {
+
+      try {
+        const response = await api.get(`/user/candidate/${job_id}`, {withCredentials: true});
+        setIsCandidate(response.data)
+
+      } catch (err) {
+          console.log(err.data)
+      }
+      
+    }
+
+
+    checkIfUserIsAlreadyCandidate()
+    handleJob();
+    handleImage();
+    handlePeopleInteressedInJob();
+  }, []);
+
+  const handleAddInteressed = async () => {
+    await api.post(
+      `/jobsInteressed/${job_id}`,
+      { user },
+      { withCredentials: true }
+    );
+
+    navigate(-1)
+  };
+
+  const handleRemoveUserInteressed = async (removeUser) => {
+
+
+    setPeopleInteressed(peopleInteressed.filter(entries => entries.name == removeUser.name))
+
+
+    // try {
+    //     await api.delete(`/jobsInteressed/${removeUser.id}`, {withCredentials: true});
+    // } catch (err) {
+    //     alert(err)
+    // }
+
+  }
+
+  const handleAddCustomerToJob = async () => {
+
+  }
+
+  const header = images[0];
+
+  return (
+    <Container>
+      <Header />
+      <Main>
+        <SpacingBox>
+          <div>
+            <section>
+              <GoBack />
+            </section>
+
+            <section>
+              <figure>
+                {images.length > 0 && (
+                  <div>
+                    <img
+                      src={`${api.defaults.baseURL}${header}`}
+                      alt="Banner para mostrar a imagem principal da pagina"
+                    />
+
+                    <figcaption>Banner</figcaption>
+                  </div>
+                )}
+              </figure>
+            </section>
+
+            <section>
+              <div>
+                <h1>{title}</h1>
+
+                <div>
+                  <h4>
+                    Criado por:
+                    <span>
+                      <img src="http://github.com/henrique1232H.png" />
+                      {userJob.name}
+                    </span>
+                  </h4>
+                </div>
+
+                <p> {description} </p>
+              </div>
+
+              <div>
+                {user.role.includes(USER_ROLE.ADMIN) ? (
+                  <MenuInteressed text="Ver fotográfos interessadas">
                     <div>
+                      <h2> Fotografos interessados </h2>
 
-                        <section>
-                            <GoBack />
-                        </section>
-
-                        <section>
-                            <figure>
-                                <img src={`${api.defaults.baseURL}${header}`} alt="Banner para mostrar a imagem principal da pagina" />
-
-                                <figcaption>Banner</figcaption>
-                                    
-                            </figure>
-                        </section>
-
-                        <section>
-                            <div>
-                                <h1>{title}</h1>
+                      {peopleInteressed.length > 0 ? (
+                        peopleInteressed.map((entries, key) => {
+                          return (
+                            <UserInteressed key={key}>
 
                                 <div>
-                                    <h4>Criado por:
-                                        <span>
-                                             <img src="http://github.com/henrique1232H.png" />
-                                             {userJob.name}
-                                        </span> 
-                                    
-                                    </h4>
+                                    <div>
+                                        <IconUser />
+                                    </div>
+                                    <div>
+                                        <h3> {entries.user_name} </h3>
+                                        <h4>{entries.user_email}</h4>
+                                    </div>
                                 </div>
 
+                                <div>
+                                    <Dialog
+                                        props={{
+                                        color: "#4cafd7",
+                                        colorButton: "#14fd1b",
+                                        fontSize: 20,
+                                        }}
+                                        title={`Escolher ${entries.user_name}?`}
+                                        icon={GiConfirmed}
+                                        description="Apenas é permitido escolher 1(um) candidato por trabalho"
+                                        action={handleAddInteressed}
+                                        optionOne="Vou escolher outro"
+                                        optionTwo="Vou escolher esse"
+                                    />
 
-                                <p> {description} </p>
-                            </div>
-
-                            <div>
-                                {
-                                    userJob.id === user.id ? 
-                                     <Link to={`/edit/${job_id}`}> 
-                                        Editar trabalho
-                                    </Link>
-                                     :
-                                    <a href="#">Compartilhar</a>
-                                }
-                                
-                            </div>
-                        </section>
-
-                        <section>
-                            <h2>Tags:</h2>
-
-                            <div>
-                                {
-                                    tags.map((entries) =>{
-                                        return <Tags key={entries.id} title={entries.name} />
-                                    })
-                                }
-                            </div>
-
-                        </section>
-
-                        <section>
-                            <h2>Localização do lugar:</h2>
-
-
-                            <ul>
-                                <li><p> {city} </p></li>
-                                <li><p> {state} </p></li>
-                                <li><p> {street} </p></li>
-                                <li><p> {district} </p></li>
-                            </ul>
-                        </section>
-
-
-                        <section>
-
-                            <h2>Imagens:</h2>
-
-                            <Carousel
-                                additionalTransfrom={0}
-                                arrows
-                                autoPlaySpeed={3000}
-                                centerMode={false}
-                                className="carousel"
-                                containerClass="container"
-                                dotListClass=""
-                                draggable
-                                focusOnSelect={false}
-                                infinite={false}
-                                itemClass=""
-                                keyBoardControl
-                                minimumTouchDrag={80}
-                                pauseOnHover
-                                renderArrowsWhenDisabled={false}
-                                renderButtonGroupOutside={false}
-                                renderDotsOutside={false}
-                                responsive={responsiveCarousel}
-                                rewind={false}
-                                rewindWithAnimation={false}
-                                rtl={false}
-                                shouldResetAutoplay
-                                showDots={false}
-                                sliderClass=""
-                                slidesToSlide={1}
-                                swipeable
-                            >
-
-                                {
-                                    images.map((entries, key) => {
-                                        return <CarouselCard key={key} img={entries} />
-                                    })
-                                }
-
-                                {
-           
-
-                                        videos.map((entries, key) => {
-                                        return <CarouselCard  key={key} hasVideos videos={entries}/>
-                                    })
-
-                                }
-
-
-                            </Carousel>
-
-                        </section>
-
+                                    <Dialog
+                                        props={{
+                                        color: "#e83333",
+                                        colorButton: "#e83333",
+                                        fontSize: 20
+                                        }}
+                                        title={`Remover ${entries.user_name}?`}
+                                        icon={MdOutlineRemoveCircleOutline}
+                                        description="Apenas é permitido escolher 1(um) candidato por trabalho"
+                                        action={() => handleRemoveUserInteressed(entries) }
+                                        optionOne="Vou escolher outro"
+                                        optionTwo="Vou escolher esse"
+                                    />
+                                </div>
+                            </UserInteressed>
+                          );
+                        })
+                      ) : (
+                        <div>
+                          <h1>ninguém se candidatou ainda</h1>
+                        </div>
+                      )}
                     </div>
-                </SpacingBox>
+                  </MenuInteressed>
+                ) : (!isCandidate ?
+                  <Dialog
+                    props={{ color: "#4cafd7", colorButton: "#14fd1b" }}
+                    title="Candidatar a vaga"
+                    text={"Candidatar a vaga"}
+                    isActive
+                    description="Após se candidatar, vocẽ deve esperar que a ímobiliaria o escolha"
+                    action={handleAddInteressed}
+                    optionOne="Não quero mudar"
+                    optionTwo="Quero me candidatar"
+                  />
+
+                  :
+                  <button>Você já se candidatou a esse trabalho</button>
+                  
+                )}
+
+                {userJob.id === user.id ? (
+                  <Link to={`/edit/${job_id}`}>Editar trabalho</Link>
+                ) : (
+                  <a href="#">Compartilhar</a>
+                )}
+              </div>
+            </section>
+
+            <section>
+              <h2>Tags:</h2>
+
+              {tags.length > 0 ? (
+                <div>
+                  {tags.map((entries) => {
+                    return <Tags key={entries.id} title={entries.name} />;
+                  })}
+                </div>
+              ) : (
+                <div>
+                  <h4>Não foi adicionado nenhuma tag</h4>
+                </div>
+              )}
+            </section>
+
+            <section>
+              <h2>Localização do lugar:</h2>
+
+              <ul>
+                <li>
+                  <p> {city} </p>
+                </li>
+                <li>
+                  <p> {state} </p>
+                </li>
+                <li>
+                  <p> {street} </p>
+                </li>
+                <li>
+                  <p> {district} </p>
+                </li>
+              </ul>
+            </section>
+            {
+              images.length > 0 && <section>
+              <h2>Imagens:</h2>
+
+              <Carousel
+                additionalTransfrom={0}
+                arrows
+                autoPlaySpeed={3000}
+                centerMode={false}
+                className="carousel"
+                containerClass="container"
+                dotListClass=""
+                draggable
+                focusOnSelect={false}
+                infinite={false}
+                itemClass=""
+                keyBoardControl
+                minimumTouchDrag={80}
+                pauseOnHover
+                renderArrowsWhenDisabled={false}
+                renderButtonGroupOutside={false}
+                renderDotsOutside={false}
+                responsive={responsiveCarousel}
+                rewind={false}
+                rewindWithAnimation={false}
+                rtl={false}
+                shouldResetAutoplay
+                showDots={false}
+                sliderClass=""
+                slidesToSlide={1}
+                swipeable
+              >
+                {images.map((entries, key) => {
+                  return <CarouselCard key={key} img={entries} />;
+                })}
+
+                {videos.map((entries, key) => {
+                  return <CarouselCard key={key} hasVideos videos={entries} />;
+                })}
+              </Carousel>
+            </section>
+            }
 
 
-            </Main>
-            
+            {
+              images.length > 0 &&  <section>
+              <button>Download dos arquivos</button>
+            </section>
+            }
+           
+          </div>
+        </SpacingBox>
+      </Main>
 
-            <Footer />
-        </Container>
-    )
+      <Footer />
+    </Container>
+  );
 }

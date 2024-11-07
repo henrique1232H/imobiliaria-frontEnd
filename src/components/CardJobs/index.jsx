@@ -3,6 +3,7 @@
 
 import { FaRegUserCircle } from "react-icons/fa";
 import { Container } from "./style";
+import { USER_ROLE } from "../../utils/roles";
 
 
 export default function CardJobs({title, description, street, city,user,district,tags, link}) {
@@ -28,6 +29,15 @@ export default function CardJobs({title, description, street, city,user,district
                 <li><p> <strong>Cidade:</strong> {city} </p></li>
                 <li><p> <strong>Bairro: </strong>{district} </p></li>
             </ul>
+            
+            {
+                USER_ROLE.ADMIN === user.role ??
+                <div>
+                    <h3>intressados:</h3>
+                </div>
+            }
+
+            
             
             <div>
                 {

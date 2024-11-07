@@ -28,7 +28,7 @@ export const Form = styled.form`
         }
     }
 
-    > div:nth-child(7) {
+    > div:nth-child(8) {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;

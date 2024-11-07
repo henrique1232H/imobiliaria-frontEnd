@@ -4,9 +4,6 @@ export const Container = styled.body`
     
     height: 100vh;
     background: #f9f3f3;
-
-
-
 `
 
 export const Main = styled.main`
@@ -34,6 +31,24 @@ export const Main = styled.main`
                 display: flex;
                 justify-content: space-between;
 
+                
+                > div:nth-child(2) {
+                    display: flex;
+                    align-items: start;
+                    justify-content: center;
+                    
+                    gap: 1rem;
+
+                    > button {
+                        margin-right: 1rem;
+                    }
+
+                    > a {
+                        padding: 1.2rem;
+                    }
+
+                    
+                }
                 
                 > div > div > h4 {
                     display: inline-flex;
@@ -84,6 +99,27 @@ export const Main = styled.main`
     
     }
 
+`
+
+export const UserInteressed = styled.div`
+    display: flex;
+    border-radius: 1rem;
+    padding: 1rem 1rem;
+    justify-content: space-between;
+    align-items: center;
+    background: #ccc;
+
+    > div:nth-child(1) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    > div:nth-child(2) {
+        display: flex;
+        gap: 1rem;
+    }
 `
 
 export const Images = styled.div`
