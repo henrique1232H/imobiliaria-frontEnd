@@ -19,14 +19,13 @@ export default function DashBoard() {
     useEffect(() => {
         async function handleSearchJobs() {
             const response = await api.get(`/search/user`, {withCredentials: true})
-                        
+            
+            console.log(response.data)
             setData(response.data);
         }
 
         
         handleSearchJobs()
-
-        
     },[]);
 
     return (
@@ -51,7 +50,7 @@ export default function DashBoard() {
                             data.length > 0 ?
                             data.map((entries, key) => {
 
-                                return <CardJobs key={key} link={entries.id} user={user} title={entries.title} description={entries.description} street={entries.street} city={entries.city} district={entries.district} tags={entries.tags}/>
+                                return <CardJobs key={key} situation={entries.situation} link={entries.id} user={user} title={entries.title} description={entries.description} street={entries.street} city={entries.city} district={entries.district} tags={entries.tags}/>
                             })
 
                             :

@@ -10,7 +10,7 @@ export default function Dialog({title,text,props,description, optionOne, optionT
         <Root isActive={Boolean(isActive)}>
             <Trigger asChild  isActive={Boolean(isActive)}>
                 {
-                    Icon ? <Icon fontSize={props.fontSize} color={props.color}/> : <p style={{background: props.color}}> {text} </p>
+                    Icon ? <Icon fontSize={props.fontSize} color={props.color}/> : <p style={{background: props.color, color: props.colorText, padding: props.padding, textAlign: props.alignItem, borderRadius: props.borderRadious, fontSize: props.fontSize}}> {text} </p>
                 }
             </Trigger>
 

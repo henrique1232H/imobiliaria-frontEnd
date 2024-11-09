@@ -107,7 +107,7 @@ export default function Profile() {
 
                             {
                                 job.map((entries) => {
-                                    return <CardJobs key={entries.id}  link={entries.id} title={entries.title} description={entries.description}  street={entries.street} district={entries.district} city={entries.city} user={entries.user}  tags={entries.tags} />
+                                    return <CardJobs key={entries.id} situation={entries.situation}  link={entries.id} title={entries.title} description={entries.description}  street={entries.street} district={entries.district} city={entries.city} user={entries.user}  tags={entries.tags} />
                                 })
                             }
                         </div>

@@ -4,14 +4,15 @@
 import { FaRegUserCircle } from "react-icons/fa";
 import { Container } from "./style";
 import { USER_ROLE } from "../../utils/roles";
+import IsActive from "../isActive";
 
 
-export default function CardJobs({title, description, street, city,user,district,tags, link}) {
+export default function CardJobs({title, description, street, city,user,district,tags, link, situation}) {
     
     return (
         <Container to={`/job/${link}`}>
 
-            <h2>{title}</h2>
+            <h2>{title}    <IsActive active={situation} card /> </h2>
 
             <div className="icon">
                 {
@@ -30,12 +31,12 @@ export default function CardJobs({title, description, street, city,user,district
                 <li><p> <strong>Bairro: </strong>{district} </p></li>
             </ul>
             
-            {
-                USER_ROLE.ADMIN === user.role ??
+            {/* {
+                USER_ROLE.ADMIN === user.role &&
                 <div>
                     <h3>intressados:</h3>
                 </div>
-            }
+            } */}
 
             
             

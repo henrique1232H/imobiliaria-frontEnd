@@ -30,14 +30,19 @@ export const Main = styled.main`
             > section:nth-child(3) {
                 display: flex;
                 justify-content: space-between;
-
+                
                 
                 > div:nth-child(2) {
                     display: flex;
                     align-items: start;
-                    justify-content: center;
+                    width: 100%;
+                    justify-content: end;
+
+                    > div:nth-child(1) {
+                        margin-top: 0.5rem;
+                    }
                     
-                    gap: 1rem;
+                    gap: 0.5rem;
 
                     > button {
                         margin-right: 1rem;
@@ -47,9 +52,16 @@ export const Main = styled.main`
                         padding: 1.2rem;
                     }
 
-                    
+                    @media (max-width: 800px) {
+                        margin-top: 1rem;
+                        justify-content: start;
+                    }
+
                 }
                 
+                @media (max-width: 800px) {
+                    flex-direction: column;
+                }
                 > div > div > h4 {
                     display: inline-flex;
                     align-items: center;
@@ -99,6 +111,14 @@ export const Main = styled.main`
     
     }
 
+`
+
+
+export const Title = styled.h1`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 30rem;
 `
 
 export const UserInteressed = styled.div`

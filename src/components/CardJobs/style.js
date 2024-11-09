@@ -15,6 +15,13 @@ export const Container = styled(Link)`
         border: 1px solid ${({theme}) =>  theme.COLOR.BLUE_200};
     }
 
+    > h2 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
     > .icon{
         padding: 0.2rem 0;
         margin-bottom: 1rem;

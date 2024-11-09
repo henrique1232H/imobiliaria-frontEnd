@@ -8,7 +8,7 @@ export default function CheckBox({isActive, onClick}) {
         <Container isActive={isActive} onClick={onClick}>
 
             {
-                isActive ? <AiOutlineCheck/> : ""
+                isActive && <AiOutlineCheck/>
             }
 
         </Container>

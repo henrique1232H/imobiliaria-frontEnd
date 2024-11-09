@@ -41,7 +41,7 @@ export default function Search() {
                 <section>
                         {
                             data.map((entries) => {
-                                return <CardJobs key={entries.id} icon={icon} link={entries.id} title={entries.title} description={entries.description}  street={entries.street} district={entries.district} city={entries.city} user={entries.user}  tags={entries.tags} />
+                                return <CardJobs key={entries.id} situation={entries.situation} icon={icon} link={entries.id} title={entries.title} description={entries.description}  street={entries.street} district={entries.district} city={entries.city} user={entries.user}  tags={entries.tags} />
                             })
                         }
                 </section>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Container, Main, UserInteressed } from "./style";
+import { Container, Main, Title, UserInteressed } from "./style";
 
 import responsiveCarousel from "../../components/responsiveCarousel";
 import "react-multi-carousel/lib/styles.css";
@@ -23,6 +23,7 @@ import { USER_ROLE } from "../../utils/roles";
 import MenuInteressed from "../../components/MenuInteressed";
 import Dialog from "../../components/AlertDialog";
 import IconUser from "../../components/IconUser";
+import IsActive from "../../components/isActive";
 
 export default function Job() {
   const { user } = useAuth();
@@ -37,6 +38,7 @@ export default function Job() {
   const [state, setState] = useState("");
   const [street, setStreet] = useState("");
   const [videos, setVideos] = useState([]);
+  const [isActive, setIsActive] = useState("");
 
   const [tags, setData] = useState([]);
 
@@ -46,7 +48,7 @@ export default function Job() {
 
   const [peopleInteressed, setPeopleInteressed] = useState([]);
 
-  const [isCandidate, setIsCandidate] = useState(false) 
+  const [isCandidate, setIsCandidate] = useState(false);
 
   useEffect(() => {
     async function handleJob() {
@@ -54,11 +56,13 @@ export default function Job() {
         withCredentials: true,
       });
 
-      console.log(response.data);
+      
 
       setTitle(response.data[0].title);
       setDescription(response.data[0].description);
 
+
+      setIsActive(response.data[0].situation);
       setDistrict(response.data[0].district);
       setCity(response.data[0].city);
       setStreet(response.data[0].street);
@@ -84,9 +88,10 @@ export default function Job() {
         const response = await api.get(`/jobsInteressed/${job_id}`, {
           withCredentials: true,
         });
+
         setPeopleInteressed(response.data);
       } catch (err) {
-        setIsCandidate(false)
+        console.log(err)
       }
     }
 
@@ -98,6 +103,7 @@ export default function Job() {
 
       } catch (err) {
           console.log(err.data)
+          
       }
       
     }
@@ -133,9 +139,14 @@ export default function Job() {
 
   }
 
-  const handleAddCustomerToJob = async () => {
+  const handleAddCustomerToJob = async (userSelected) => {
+    const response = await api.post(`/jobsInteressed/select/${job_id}`, {user_id: userSelected.user_id}, {withCredentials: true})
+    console.log(response)
 
+    navigate(-1)
+    
   }
+  
 
   const header = images[0];
 
@@ -166,7 +177,7 @@ export default function Job() {
 
             <section>
               <div>
-                <h1>{title}</h1>
+                <Title>{title}</Title>
 
                 <div>
                   <h4>
@@ -182,6 +193,8 @@ export default function Job() {
               </div>
 
               <div>
+               <IsActive active={isActive} /> 
+
                 {user.role.includes(USER_ROLE.ADMIN) ? (
                   <MenuInteressed text="Ver fotográfos interessadas">
                     <div>
@@ -212,7 +225,7 @@ export default function Job() {
                                         title={`Escolher ${entries.user_name}?`}
                                         icon={GiConfirmed}
                                         description="Apenas é permitido escolher 1(um) candidato por trabalho"
-                                        action={handleAddInteressed}
+                                        action={() => handleAddCustomerToJob(entries)}
                                         optionOne="Vou escolher outro"
                                         optionTwo="Vou escolher esse"
                                     />
@@ -225,10 +238,10 @@ export default function Job() {
                                         }}
                                         title={`Remover ${entries.user_name}?`}
                                         icon={MdOutlineRemoveCircleOutline}
-                                        description="Apenas é permitido escolher 1(um) candidato por trabalho"
+                                        description="Não tem como reverter sua escolha"
                                         action={() => handleRemoveUserInteressed(entries) }
-                                        optionOne="Vou escolher outro"
-                                        optionTwo="Vou escolher esse"
+                                        optionOne="Vou excluir outro"
+                                        optionTwo="Vou excluir esse"
                                     />
                                 </div>
                             </UserInteressed>
@@ -241,7 +254,7 @@ export default function Job() {
                       )}
                     </div>
                   </MenuInteressed>
-                ) : (!isCandidate ?
+                ) : (isCandidate ?
                   <Dialog
                     props={{ color: "#4cafd7", colorButton: "#14fd1b" }}
                     title="Candidatar a vaga"
@@ -254,6 +267,7 @@ export default function Job() {
                   />
 
                   :
+
                   <button>Você já se candidatou a esse trabalho</button>
                   
                 )}
