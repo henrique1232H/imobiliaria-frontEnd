@@ -1,6 +1,5 @@
 import { Container, Form, Input, IsApartament, Select } from "./style";
 import GoBack from "../../components/Back";
-import Button from "../../components/Button"
 import { useEffect, useState } from "react";
 import { api } from "../../service/api";
 import TagItem from "../../components/TagsItem";
@@ -39,26 +38,37 @@ export default function Add() {
 
     const [budget, setBudget] = useState("");
 
+    const [discount, setDiscount] = useState(0);
+    const [photographerValue, setPhotographerValue] = useState(0);
+
+
+    const [apartmentBlock, setApartmentBlock] = useState("");
+    const [apartmentNumber, setApartmentNumber] = useState("");
+
     const navigate = useNavigate()
     
 
     const checkIfAllInputIsComplete = () => {
-
+        return "alo"
     }
     
     const handleEnterJob = async (e) => {
         e.preventDefault()
 
         const response = checkIfAllInputIsComplete();
+        console.log(response)
 
         const moreInformation = {
             ownerName,
             ownerNumber,
             job,
-            key,
+            apartment_key : key,
+            apartmentBlock,
+            apartmentNumber,
             isApartament
 
         }
+
 
         const convertTime = `${day}T${time}`
 
@@ -74,7 +84,7 @@ export default function Add() {
                 street,
                 budget,
                 dayOfWeek, 
-                timestamp,
+                day: timestamp,
                 timeOut,
                 referencePoint,
                 moreInformation,
@@ -104,7 +114,6 @@ export default function Add() {
         setIsApartament(false)
     }, [job])
 
-    console.log(job)
 
     return (
         <Container>
@@ -162,7 +171,33 @@ export default function Add() {
 
                         <div>
                             <label htmlFor="budget"> <h3>Valor do trabalho (R$):</h3> </label>
-                            <Input type="number" id="budget" onChange={e => setBudget(e.target.value)} />
+                            <Input 
+                                type="number" 
+                                id="budget" 
+                                onChange={e => setBudget(e.target.value)} 
+                                onBlur={() => {
+                                    const budgetNumber = Number(budget);
+
+                                    const mathDiscount = (20 * budgetNumber) / 100;
+                                    const photographerValue = budget - mathDiscount
+
+                                    setDiscount(mathDiscount);
+                                    setPhotographerValue(photographerValue)
+
+    
+                                }} />
+                        </div>
+
+                        <div>
+                            <label htmlFor=""><h3>Quanto a fotop receberá:</h3></label>
+                            <p>a fotop recebe 20% do valor do trabalho</p>
+                            <Input type="number" placeholder={`R$${Math.round(discount)}`} disabled/>
+                        </div>
+                        
+                        <div>
+                            <label htmlFor=""><h3>Quanto o fotográfo receberá:</h3></label>
+                            <p>O fotográfo recebera o restante</p>
+                            <Input type="number" placeholder={`R$ ${Math.round(photographerValue)}`} disabled/>
                         </div>
                     </section>
 
@@ -300,12 +335,12 @@ export default function Add() {
 
                                 <div>
                                     <label htmlFor="apartmentBlock"> <h3>Bloco do apartamento:</h3></label>
-                                    <Input type="text" id="apatmentBlock" />
+                                    <Input type="text" id="apatmentBlock"  onChange={e => setApartmentBlock(e.target.value)}/>
                                 </div>
 
                                 <div>
                                     <label htmlFor="apartmentNumber"> <h3>Número do apartamento:</h3></label>
-                                    <Input type="number" name="" id="apartmentNumber" />
+                                    <Input type="number" name="" id="apartmentNumber" onChange={e => setApartmentNumber(e.target.value)} />
                                 </div>
                             </IsApartament>
                         }
@@ -345,6 +380,7 @@ export default function Add() {
 
                 </Form>
             </main>
+
         </Container>
     )
 }

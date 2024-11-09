@@ -153,6 +153,8 @@ export const Input = styled.input`
         margin: 0;
     }
 
+    
+
     &::placeholder {
         color: #ccc;
     }
