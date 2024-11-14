@@ -1,21 +1,23 @@
 import { Routes, Route } from "react-router-dom";
 
-import Add from "../Pages/Add";
 import DashBoard from "../Pages/Dashboard";
 import Job from "../Pages/Job";
 import Profile from "../Pages/Profile";
 import Search from "../Pages/Search";
 import NotFound from "../Pages/NotFound";
+import AddPhotos from "../Pages/AddPhotos";
+import JobInteressed from "../Pages/JobInteressed";
 
 export default function CustomerRoutes() {
 
     return (
         <Routes>
             <Route path="/" element={<DashBoard />} />
-            <Route path="/add" element={<Add />}/>
-            <Route path="/:job_id" element={<Job />}/>
+            <Route path="/add" element={<AddPhotos />}/>
+            <Route path="/job/:job_id" element={<Job />}/>
             <Route path="/profile" element={<Profile />}/>
             <Route path="/search" element={<Search />}/>
+            <Route path="/jobInteressed" element={<JobInteressed />} />
 
             <Route path="*" exact={true} element={<NotFound/>}/>
         </Routes>

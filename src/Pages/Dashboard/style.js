@@ -11,3 +11,24 @@ export const Container = styled.div`
     }
 
 `
+
+
+export const EmptyJob = styled.div`
+    background: #d3e0ef;
+    margin-top: 3rem;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3rem;
+
+    color: #000;
+
+    > svg {
+        font-size: 15rem;
+        color: #fff;
+    }
+
+`

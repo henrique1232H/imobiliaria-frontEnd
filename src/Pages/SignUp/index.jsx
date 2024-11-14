@@ -15,6 +15,8 @@ import GoBack from "../../components/Back";
 
 
 
+
+
 export default function SignUp() {
 
     const [name, setName] = useState("");

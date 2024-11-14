@@ -2,37 +2,214 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     background:#f9f3f3;
-    height: 100vh;
+    height: auto;
     padding: 4rem 2rem;
+    display: flex;
+    justify-content: center;
+    
+    > div {
+        display: block;
+        width: 50%;
+        background-color: #4158D0;
+        background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+
+    }
 
     > main {
         background: #fff;
-        border-radius: 1rem;
-        padding: 1rem 1rem;
-        height: 100%;
+        border-radius: 1rem 0 0 1rem;
+        padding: 2rem;
+        width: 50%;
+    }
+
+    @media (max-width: 1100px) {
+        display: block;
+        padding: 0;
+
+        > div {
+            visibility: hidden;
+            display: none;
+        }
+
+        > main {
+            width: 100%;
+        }
+
+
     }
 
 `
 
 
 export const Form = styled.form`
-    > div {
-        margin-top: 2rem;
-        display: flex;
-        flex-direction: column;
 
-        > input {
-            padding: 0.4rem;
-            border: 1px solid #000;
-            border-radius: 0.4rem;
+    > section {
+        > h2 {
+            margin-top: 1rem;
+            color: ${({theme}) => theme.COLOR.BLUE_200}
+        }
+
+        > p {
+            font-size: 1.3rem;
+        }
+
+        
+        > div {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            margin-top: 1rem;
+
+            
+            
+            > label > h3 {
+                font-size: 2rem;
+            }
+
+            > p {
+                font-size: 1.3rem;
+            }
+    
+            > textarea {
+                padding: 1rem 2rem;
+                border: 1px solid #ccc;
+                border-radius: 0.4rem;
+                resize: none;
+                height: 10rem;
+                outline: none;
+    
+            }
+    
+            > textarea::placeholder {
+                color: #ccc;
+            }
+
+            > textarea:focus {
+                border: 2px solid ${({theme}) => theme.COLOR.BLUE_200};
+            }
+        }
+        
+    }
+
+    > section:nth-child(4), > section:nth-child(5) {
+
+        > div {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(1, 1fr);
+            column-gap: 2rem;
+            background: 1rem;
+            
+                        
+            > div {
+                display: flex;
+                flex-direction: column;
+                gap: 0.2rem;
+                margin-top: 1rem;
+
+                > label > h3 {
+                    font-size: 2rem;
+                }
+    
+                > p {
+                    font-size: 1.3rem;
+                }
+
+            }
+            
+            @media (max-width:800px) {
+                grid-template-columns: repeat(1, 1fr);
+            }
         }
     }
 
-    > div:nth-child(8) {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 1rem;
+    > section:nth-child(7) {
+        > div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+
+            > label {
+                font-size: 1.3rem;
+            }
+        }
     }
+    
+    > section:nth-child(2) {
+        > div {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+    }
+
+
+`
+
+
+export const Select = styled.select`
+    padding: 1rem 2rem;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 0.4rem;
+    cursor: pointer;
+
+    &:focus {
+        border: 2px solid ${({theme}) => theme.COLOR.BLUE_200};
+    }
+`
+
+export const Input = styled.input`
+    padding: 1rem 2rem;
+    border: 1px solid #ccc;
+    border-radius: 0.4rem;
+    outline: none;
+    
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    
+
+    &::placeholder {
+        color: #ccc;
+    }
+
+    &:focus {
+        border: 2px solid ${({theme}) => theme.COLOR.BLUE_200};
+    }
+`
+
+export const IsApartament = styled.div`
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(1, 1fr);
+            column-gap: 2rem !important;
+                                
+            > div {
+                display: flex;
+                flex-direction: column;
+                gap: 0.2rem;
+                margin-top: 1rem;
+
+                > label > h3 {
+                    font-size: 2rem;
+                }
+    
+                > p {
+                    font-size: 1.3rem;
+                }
+
+            }
+            
+            @media (max-width:800px) {
+                grid-template-columns: repeat(1, 1fr);
+            }
 
 `

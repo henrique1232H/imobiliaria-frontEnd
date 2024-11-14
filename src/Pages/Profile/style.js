@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -20,8 +21,18 @@ export const Container = styled.div`
             display: grid;
             grid-template-columns: repeat(3, 1fr);
 
-            > section:nth-child(1) {
+            @media (max-width: 1400px) {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
 
+                
+
+            }
+                
+            > section:nth-child(1) {
+                
                 width: 50rem;
                 display: flex;
                 flex-direction: column;
@@ -31,14 +42,20 @@ export const Container = styled.div`
                 border-radius: 1rem;
                 padding: 3rem 0 ;
 
-
+                @media (max-width: 1400px) {
+                    background: none;
+                    height: auto;
+                    padding: 0;
+                }
+                
+                
                 > h2 {
                     margin-top: 1rem;
                     font-size: 1.5rem;
                     display: inline-flex;
                     align-items: center;
                     margin-bottom: 1rem;
-
+                    
                     > span {
                         display: inline-flex;
                         align-items: center;
@@ -48,13 +65,16 @@ export const Container = styled.div`
                         font-size: 1.3rem;
                         margin-left: 1rem;
                         gap: 0.5rem;
-                        background: ${ ({theme, isAdmin}) => isAdmin === "admin" ? "#E3F909" : "#6215F1" };
+                        background: ${ ({theme,isAdmin}) => isAdmin === "admin" ? "#E3F909" : "#6215F1" };
                     }
                 }
-
+                
                 > figure {
                     position: relative;
                     
+                    > input {
+                        display: none;
+                    }
                     > label {
                         position: absolute;
                         bottom: 0;
@@ -68,28 +88,35 @@ export const Container = styled.div`
                         border-radius: 10rem;
                         border: 1px solid #000;
                         cursor: pointer;
-    
+                        
                     }
                     
                     > img {
                         border-radius: 15rem;
                         height: 30rem;
                     }
-                }
 
-                > input {
-                    display: none;
+                    > div {
+                        background: #fff;
+                        border-radius: 50%;
+                        padding: 1rem;
+                        > svg {
+                            font-size: 30rem;
+                        }
+                    }
+
                 }
-              
+                
+                
             }
-
-
+            
+            
             > section:nth-child(2) {
                 width: 100%;
                 margin-top: 20rem;
                 grid-column-start: 2;
                 grid-column-end: 4;
-
+                
                 > div {
                     > div {
                         background: ${({theme}) => theme.COLOR.WHITE_100};

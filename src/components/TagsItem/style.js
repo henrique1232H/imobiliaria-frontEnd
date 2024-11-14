@@ -11,7 +11,7 @@ export const Container = styled.div`
     border-radius: 1rem;
     border-width: ${({isNew}) => isNew ? "1px" : "none"};
     border-style: ${({isNew}) => isNew ? "dashed" : "none"};
-
+    max-width: 20%;
 
     > input {
         background: none;
@@ -19,6 +19,7 @@ export const Container = styled.div`
         width: auto;
         outline: none;
         color: ${({isNew}) => isNew ? "#000" : "#fff"};
+        width: 100%;
     }
 
     > input:focus {
@@ -31,10 +32,9 @@ export const Container = styled.div`
 
     > button {
         background: none;
+        border: none;
         display: flex;
         align-items: center;
-        border: none;
-        padding: 0.5rem;
-        cursor: pointer;
-    }
+        justify-content: center;
+}
 `

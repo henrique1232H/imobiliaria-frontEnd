@@ -51,6 +51,11 @@ export const Form = styled.form`
     display: flex;
     flex-direction: column;
     position: relative;
+    
+    > div > figure {
+        background: red;
+        
+    }
 
     .checkbox {
         display: flex;
