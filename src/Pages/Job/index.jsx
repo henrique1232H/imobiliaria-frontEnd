@@ -24,23 +24,20 @@ import MenuInteressed from "../../components/MenuInteressed";
 import Dialog from "../../components/AlertDialog";
 import IconUser from "../../components/IconUser";
 import IsActive from "../../components/isActive";
+import Accordion from "../../components/Accordion";
 
 export default function Job() {
   const { user } = useAuth();
   const { job_id } = useParams();
   const navigate = useNavigate()
 
-  const [title, setTitle] = useState();
-  const [description, setDescription] = useState("");
 
-  const [city, setCity] = useState("");
-  const [district, setDistrict] = useState("");
-  const [state, setState] = useState("");
-  const [street, setStreet] = useState("");
+  const [data, setData] = useState({})
+
   const [videos, setVideos] = useState([]);
   const [isActive, setIsActive] = useState("");
 
-  const [tags, setData] = useState([]);
+  const [tags, setTags] = useState([]);
 
   const [userJob, setUserJob] = useState({});
 
@@ -56,21 +53,11 @@ export default function Job() {
         withCredentials: true,
       });
 
-      
 
-      setTitle(response.data[0].title);
-      setDescription(response.data[0].description);
-
-
+      setData(response.data[0])
       setIsActive(response.data[0].situation);
-      setDistrict(response.data[0].district);
-      setCity(response.data[0].city);
-      setStreet(response.data[0].street);
-      setState(response.data[0].state);
-
       setUserJob(response.data[1]);
-
-      setData(response.data[2]);
+      setTags(response.data[2]);
     }
 
     async function handleImage() {
@@ -89,6 +76,7 @@ export default function Job() {
           withCredentials: true,
         });
 
+
         setPeopleInteressed(response.data);
       } catch (err) {
         console.log(err)
@@ -99,11 +87,11 @@ export default function Job() {
 
       try {
         const response = await api.get(`/user/candidate/${job_id}`, {withCredentials: true});
+        console.log(response)
         setIsCandidate(response.data)
 
       } catch (err) {
           console.log(err.data)
-          
       }
       
     }
@@ -140,16 +128,13 @@ export default function Job() {
   }
 
   const handleAddCustomerToJob = async (userSelected) => {
-    const response = await api.post(`/jobsInteressed/select/${job_id}`, {user_id: userSelected.user_id}, {withCredentials: true})
-    console.log(response)
+    await api.post(`/jobsInteressed/select/${job_id}`, {user_id: userSelected.user_id}, {withCredentials: true})
 
     navigate(-1)
     
   }
   
-
   const header = images[0];
-
   return (
     <Container>
       <Header />
@@ -176,108 +161,116 @@ export default function Job() {
             </section>
 
             <section>
-              <div>
-                <Title>{title}</Title>
 
+              <div>
                 <div>
-                  <h4>
-                    Criado por:
-                    <span>
-                      <img src="http://github.com/henrique1232H.png" />
-                      {userJob.name}
-                    </span>
-                  </h4>
+                  <Title>{data.title} <IsActive active={isActive} /> - R${data.budget} </Title>
+
+                  <div>
+                    <h4>
+                      Criado por:
+                      <span>
+                        <IconUser src="http://github.com/henrique1232H.png" />
+                        {userJob.name}
+                      </span>
+                    </h4>
+                  </div>
+
+                  <div>
+                  {user.role.includes(USER_ROLE.ADMIN) && (
+                    <MenuInteressed text="Ver fotográfos interessadas">
+                      <div>
+                        <h2> Fotografos interessados </h2>
+
+                        {peopleInteressed.length > 0 ? (
+                          peopleInteressed.map((entries, key) => {
+                            return (
+                              <UserInteressed key={key}>
+
+                                  <div>
+                                      <div>
+                                          <IconUser />
+                                      </div>
+                                      <div>
+                                          <h3> {entries.user_name} </h3>
+                                          <h4>{entries.user_email}</h4>
+                                      </div>
+                                  </div>
+
+                                  <div>
+                                      <Dialog
+                                          props={{
+                                          color: "#4cafd7",
+                                          colorButton: "#14fd1b",
+                                          fontSize: 20,
+                                          }}
+                                          title={`Escolher ${entries.user_name}?`}
+                                          icon={GiConfirmed}
+                                          description="Apenas é permitido escolher 1(um) candidato por trabalho"
+                                          action={() => handleAddCustomerToJob(entries)}
+                                          optionOne="Vou escolher outro"
+                                          optionTwo="Vou escolher esse"
+                                      />
+
+                                      <Dialog
+                                          props={{
+                                          color: "#e83333",
+                                          colorButton: "#e83333",
+                                          fontSize: 20
+                                          }}
+                                          title={`Remover ${entries.user_name}?`}
+                                          icon={MdOutlineRemoveCircleOutline}
+                                          description="Não tem como reverter sua escolha"
+                                          action={() => handleRemoveUserInteressed(entries) }
+                                          optionOne="Vou excluir outro"
+                                          optionTwo="Vou excluir esse"
+                                      />
+                                  </div>
+                              </UserInteressed>
+                            );
+                          })
+                        ) : (
+                          <div>
+                            <h1>ninguém se candidatou ainda</h1>
+                          </div>
+                        )}
+                      </div>
+                    </MenuInteressed>
+                  )}
+                  </div>
+
                 </div>
 
-                <p> {description} </p>
+                <div>
+                  {
+                    user.role.includes(USER_ROLE.CUSTOMER) &&
+                    ( 
+                      isCandidate ?
+                        <Dialog
+                        props={{ color: "#4cafd7", colorButton: "#14fd1b" }}
+                        title="Candidatar a vaga"
+                        text={"Candidatar a vaga"}
+                        isActive
+                        description="Após se candidatar, vocẽ deve esperar que a ímobiliaria o escolha"
+                        action={handleAddInteressed}
+                        optionOne="Não quero mudar"
+                        optionTwo="Quero me candidatar"
+                      />
+                      :
+                      <button disabled>Você já se candidatou a esse trabalho</button>
+                    )
+                  }
+            
+                  {userJob.id === user.id ? (
+                    <Link to={`/edit/${job_id}`}>Editar trabalho</Link>
+                  ) : (
+                    <a href="#">Compartilhar</a>
+                  )}
+                </div>
               </div>
 
-              <div>
-               <IsActive active={isActive} /> 
 
-                {user.role.includes(USER_ROLE.ADMIN) ? (
-                  <MenuInteressed text="Ver fotográfos interessadas">
-                    <div>
-                      <h2> Fotografos interessados </h2>
-
-                      {peopleInteressed.length > 0 ? (
-                        peopleInteressed.map((entries, key) => {
-                          return (
-                            <UserInteressed key={key}>
-
-                                <div>
-                                    <div>
-                                        <IconUser />
-                                    </div>
-                                    <div>
-                                        <h3> {entries.user_name} </h3>
-                                        <h4>{entries.user_email}</h4>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <Dialog
-                                        props={{
-                                        color: "#4cafd7",
-                                        colorButton: "#14fd1b",
-                                        fontSize: 20,
-                                        }}
-                                        title={`Escolher ${entries.user_name}?`}
-                                        icon={GiConfirmed}
-                                        description="Apenas é permitido escolher 1(um) candidato por trabalho"
-                                        action={() => handleAddCustomerToJob(entries)}
-                                        optionOne="Vou escolher outro"
-                                        optionTwo="Vou escolher esse"
-                                    />
-
-                                    <Dialog
-                                        props={{
-                                        color: "#e83333",
-                                        colorButton: "#e83333",
-                                        fontSize: 20
-                                        }}
-                                        title={`Remover ${entries.user_name}?`}
-                                        icon={MdOutlineRemoveCircleOutline}
-                                        description="Não tem como reverter sua escolha"
-                                        action={() => handleRemoveUserInteressed(entries) }
-                                        optionOne="Vou excluir outro"
-                                        optionTwo="Vou excluir esse"
-                                    />
-                                </div>
-                            </UserInteressed>
-                          );
-                        })
-                      ) : (
-                        <div>
-                          <h1>ninguém se candidatou ainda</h1>
-                        </div>
-                      )}
-                    </div>
-                  </MenuInteressed>
-                ) : (isCandidate ?
-                  <Dialog
-                    props={{ color: "#4cafd7", colorButton: "#14fd1b" }}
-                    title="Candidatar a vaga"
-                    text={"Candidatar a vaga"}
-                    isActive
-                    description="Após se candidatar, vocẽ deve esperar que a ímobiliaria o escolha"
-                    action={handleAddInteressed}
-                    optionOne="Não quero mudar"
-                    optionTwo="Quero me candidatar"
-                  />
-
-                  :
-
-                  <button>Você já se candidatou a esse trabalho</button>
-                  
-                )}
-
-                {userJob.id === user.id ? (
-                  <Link to={`/edit/${job_id}`}>Editar trabalho</Link>
-                ) : (
-                  <a href="#">Compartilhar</a>
-                )}
-              </div>
+              <p> {data.description} </p>
             </section>
 
             <section>
@@ -292,28 +285,17 @@ export default function Job() {
               ) : (
                 <div>
                   <h4>Não foi adicionado nenhuma tag</h4>
+
                 </div>
               )}
             </section>
 
             <section>
-              <h2>Localização do lugar:</h2>
+                <h2>Informações sobre o trabalho:</h2>
 
-              <ul>
-                <li>
-                  <p> {city} </p>
-                </li>
-                <li>
-                  <p> {state} </p>
-                </li>
-                <li>
-                  <p> {street} </p>
-                </li>
-                <li>
-                  <p> {district} </p>
-                </li>
-              </ul>
+                <Accordion  props={data}/>
             </section>
+
             {
               images.length > 0 && <section>
               <h2>Imagens:</h2>

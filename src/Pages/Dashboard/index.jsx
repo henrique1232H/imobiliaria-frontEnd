@@ -20,7 +20,6 @@ export default function DashBoard() {
         async function handleSearchJobs() {
             const response = await api.get(`/search/user`, {withCredentials: true})
             
-            console.log(response.data)
             setData(response.data);
         }
 
@@ -48,9 +47,8 @@ export default function DashBoard() {
 
                         {   
                             data.length > 0 ?
-                            data.map((entries, key) => {
-
-                                return <CardJobs key={key} situation={entries.situation} link={entries.id} user={user} title={entries.title} description={entries.description} street={entries.street} city={entries.city} district={entries.district} tags={entries.tags}/>
+                            data.map((job, key) => {
+                                return <CardJobs key={key} timeout={job.entries.timeout} date={job.entries.day} price={job.entries.budget} situation={job.entries.situation} link={job.entries.id} user={user} title={job.entries.title} description={job.entries.description} street={job.entries.street} city={job.entries.city} district={job.entries.district} tags={job.tags}/>
                             })
 
                             :

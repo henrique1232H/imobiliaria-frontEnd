@@ -3,7 +3,6 @@ import { Container } from "./style";
 
 export default function IsActive({active, card}) {
 
-    console.log(active)
     let color = "";
     let colorText = "#fff"
     let text = ""

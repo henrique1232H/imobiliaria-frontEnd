@@ -8,17 +8,19 @@ export const Container = styled.body`
 
 export const Main = styled.main`
 
-
     > div {
         background: #ccc;
         padding: 1rem 0;
+        height: 100%;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
 
         > div {
             background: #fff;
             border-radius: 1rem;
             padding: 1rem 2rem;
-            height: 100vh;
-            overflow-y: scroll;
+            height: auto;
 
 
             > section {
@@ -30,56 +32,70 @@ export const Main = styled.main`
             > section:nth-child(3) {
                 display: flex;
                 justify-content: space-between;
-                
-                
-                > div:nth-child(2) {
+                flex-direction: column;
+
+                > p {
+                    margin-top: 4rem;
+                    font-size: 1.2rem;
+                }
+
+                > div {
                     display: flex;
                     align-items: start;
                     width: 100%;
-                    justify-content: end;
 
-                    > div:nth-child(1) {
-                        margin-top: 0.5rem;
+                    @media (max-width: 800px) {
+                        margin-top: 1rem;
+                        justify-content: start;
+                        align-items: start;
+                        flex-direction: column;
                     }
-                    
-                    gap: 0.5rem;
+
+            
+                    > div:last-child {
+                        width: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: end;
+
+                        > a {
+                        padding: 1.2rem;
+                    }
+                    }
+
+
+                    > div:first-child {
+                        width: 100%;
+                        > div {
+                            display: flex;
+                            align-items: center;
+                            margin-top: 1rem;
+
+                            > h4 {
+                                display: flex;
+                                align-items: center;
+                                gap: 1rem;
+                                font-size: 1.4rem;
+
+                                > span {
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 1rem;
+                                }
+                            }
+                        }
+                    }
 
                     > button {
                         margin-right: 1rem;
                     }
 
-                    > a {
-                        padding: 1.2rem;
-                    }
 
-                    @media (max-width: 800px) {
-                        margin-top: 1rem;
-                        justify-content: start;
-                    }
 
                 }
                 
                 @media (max-width: 800px) {
                     flex-direction: column;
-                }
-                > div > div > h4 {
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 1rem;
-                    
-                    > span {
-
-                        display: flex;
-                        align-items: center;
-                        gap: 1rem;
-
-                        > img {
-                            height: 4rem;
-                            border-radius: 50rem;
-                        }
-                    } 
-                    
-                    
                 }
             }
 
@@ -117,8 +133,13 @@ export const Main = styled.main`
 export const Title = styled.h1`
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 30rem;
+    gap: 2rem;
+    width: 100%;
+
+    @media (max-width: 800px) {
+        flex-direction: column;
+        align-items: start;
+    }
 `
 
 export const UserInteressed = styled.div`

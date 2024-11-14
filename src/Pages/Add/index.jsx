@@ -35,28 +35,43 @@ export default function Add() {
     const [key, setKey] = useState("")
 
     const [day, setDay] = useState("");
-
+    
     const [budget, setBudget] = useState("");
-
+    
     const [discount, setDiscount] = useState(0);
     const [photographerValue, setPhotographerValue] = useState(0);
-
-
+    
+    
     const [apartmentBlock, setApartmentBlock] = useState("");
     const [apartmentNumber, setApartmentNumber] = useState("");
-
+    
     const navigate = useNavigate()
     
+    useEffect(() => {
+        if(job === "Apartamento") {
+            setIsApartament(!isApartament)
+            return;
+        }
+
+        setIsApartament(false)
+    }, [job])
 
     const checkIfAllInputIsComplete = () => {
-        return "alo"
+        if(title === "" || description === "" || city === "" ) {
+            return true
+        }
     }
     
     const handleEnterJob = async (e) => {
         e.preventDefault()
 
         const response = checkIfAllInputIsComplete();
-        console.log(response)
+        
+        if(response) {
+            alert("prencha o campo")
+            return;
+        }
+
 
         const moreInformation = {
             ownerName,
@@ -105,14 +120,6 @@ export default function Add() {
         setNewTag("")
     }
 
-    useEffect(() => {
-        if(job === "Apartamento") {
-            setIsApartament(!isApartament)
-            return;
-        }
-
-        setIsApartament(false)
-    }, [job])
 
 
     return (
@@ -329,6 +336,7 @@ export default function Add() {
                                     <Select id="keys" onChange={(e) => setKey(e.target.value) }>
                                         <option value="Porteiro">Porteiro</option>
                                         <option value="Proprietário">O proprietário</option>
+                                        <option value="Mobiliaria">Com a mobiliaria</option>
                                         <option value="No">Só entrar</option>
                                     </Select>
                                 </div>
@@ -380,6 +388,8 @@ export default function Add() {
 
                 </Form>
             </main>
+            
+            <div />
 
         </Container>
     )

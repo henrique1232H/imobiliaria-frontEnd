@@ -8,7 +8,7 @@ export default function IconUser({src}) {
 
     return (
         <Container>
-            <Image src={`http://github.com/henrique1232H.png`} alt="foto do usuario"/>
+            <Image src={`${src}`} alt="foto do usuario"/>
 
             <FallBack delayMs={600}>
                     TESTANDO

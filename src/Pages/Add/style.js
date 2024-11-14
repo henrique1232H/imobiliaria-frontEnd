@@ -4,12 +4,38 @@ export const Container = styled.div`
     background:#f9f3f3;
     height: auto;
     padding: 4rem 2rem;
+    display: flex;
+    justify-content: center;
+    
+    > div {
+        display: block;
+        width: 50%;
+        background-color: #4158D0;
+        background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+
+    }
 
     > main {
         background: #fff;
-        border-radius: 1rem;
-        padding: 1rem 1rem;
-        height: 100%;
+        border-radius: 1rem 0 0 1rem;
+        padding: 2rem;
+        width: 50%;
+    }
+
+    @media (max-width: 1100px) {
+        display: block;
+        padding: 0;
+
+        > div {
+            visibility: hidden;
+            display: none;
+        }
+
+        > main {
+            width: 100%;
+        }
+
+
     }
 
 `
@@ -94,10 +120,6 @@ export const Form = styled.form`
             @media (max-width:800px) {
                 grid-template-columns: repeat(1, 1fr);
             }
-        }
-
-        .full {
-            display: flex;
         }
     }
 

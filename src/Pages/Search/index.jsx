@@ -15,18 +15,11 @@ export default function Search() {
     useEffect(() => {
         async function handleData() {
             const response = await api.get("/search", {withCredentials:true});
-            console.log(response.data)
-
             setData(response.data)
         }
-
         handleData()
-
     }, [input])
 
-
-
-    const icon = "http://github.com/henrique1232H.png"
 
     return (
         <Container>
@@ -40,8 +33,8 @@ export default function Search() {
 
                 <section>
                         {
-                            data.map((entries) => {
-                                return <CardJobs key={entries.id} situation={entries.situation} icon={icon} link={entries.id} title={entries.title} description={entries.description}  street={entries.street} district={entries.district} city={entries.city} user={entries.user}  tags={entries.tags} />
+                            data.map((job) => {
+                                return <CardJobs key={job.entries.id} timeout={job.entries.timeout} date={job.entries.day} price={job.entries.budget} situation={job.entries.situation} link={job.entries.id} user={job.user} title={job.entries.title} description={job.entries.description} street={job.entries.street} city={job.entries.city} district={job.entries.district} tags={job.tags}/>
                             })
                         }
                 </section>

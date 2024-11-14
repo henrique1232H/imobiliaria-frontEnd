@@ -27,6 +27,31 @@ export const Container = styled(Link)`
         margin-bottom: 1rem;
     }
 
+    > div:nth-child(1) {
+        display: flex;
+        justify-content: space-between;
+
+        > div {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            > span {
+                display: flex;
+                gap: 1rem;
+
+                > h3:last-child {
+                    color: red;
+                }
+            }
+
+            > h3 {
+                color: ${({theme}) => theme.COLOR.BLUE_200};
+                font-size: 1.5rem;
+            }
+        }
+    }
+
     > div > img  {
         height: 4rem;
         border-radius: 2rem;
