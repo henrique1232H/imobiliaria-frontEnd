@@ -9,17 +9,23 @@ export const Container = styled.body`
 
 `
 
+export const UploadImages = styled.section`
+
+`
+
 export const AddImages = styled.div`
     background: #f9f3f3;
     border-radius: 1rem;
     height: 100%;
+    min-height: 30rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     flex-direction: column;
     justify-content: center;
     cursor: pointer;
-    width: 100%;
+    width: 50rem;
+    margin-right: 10rem;
 
 
 
@@ -53,14 +59,24 @@ export const Main = styled.main`
 
     > div {
         background: #ccc;
-        padding: 1rem 0;
+        padding: 4rem 0;
+
+
+        @media (max-width: 1100px) {
+            padding: 0;
+
+            > div {
+                width: 100%;
+                border-radius: none;
+            }
+        }
 
         > div {
             background: #fff;
             border-radius: 1rem;
             padding: 1rem 2rem;
-            height: 100vh;
-            overflow-y: scroll;
+            height: 100%;
+            min-height: 90vh;
 
 
             > section {
@@ -70,7 +86,6 @@ export const Main = styled.main`
 
             > section:nth-child(2) {
 
-                
                 > figure {
                     width: 100%;
                     > label > img {
@@ -85,7 +100,6 @@ export const Main = styled.main`
             > section:nth-child(3) {
                 display: flex;
                 justify-content: space-between;
-                
                 
                 > div > div > h4 {
                     display: inline-flex;
@@ -109,15 +123,46 @@ export const Main = styled.main`
             }
             
             > section:nth-child(4) {
-
                 
                 > div {
                     display: flex;
                 }
             }
 
-            > section:nth-child(5) {
-                
+            > section:nth-child(5), > section:nth-child(6) {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+
+
+                > div:last-child {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    row-gap: 3rem;
+                    margin-top: 5rem;
+                }
+
+                @media (max-width: 1100px) {
+                    
+                    > div:last-child {
+                        grid-template-columns: repeat(3, 1fr);
+                    }
+                }
+
+                @media (max-width: 900px) {
+                    
+                    > div:last-child {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+                }
+
+                @media (max-width: 500px) {
+                    
+                    > div:last-child {
+                        grid-template-columns: repeat(1, 1fr);
+                    }
+                }
+
                > h2 {
                 margin: 2rem 0;
                }

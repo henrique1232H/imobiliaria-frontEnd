@@ -17,7 +17,6 @@ export default function Add() {
     const [state, setState] = useState("")
     const [street, setStreet] =  useState("")
     const [newTag, setNewTag] = useState("");
-    const [dayOfWeek, setDayOfWeek] = useState("");
     const [time, setTime] = useState("");
     const [timeOut, setTimeOut] = useState("");
     
@@ -98,7 +97,6 @@ export default function Add() {
                 state, 
                 street,
                 budget,
-                dayOfWeek, 
                 day: timestamp,
                 timeOut,
                 referencePoint,
@@ -253,37 +251,10 @@ export default function Add() {
                         <h2>Data e horário:</h2>
 
                         <div>
-                            <div>
-                                <label htmlFor="day"><h3>Dia da semana: *</h3></label>
-                                <Select id="day" onChange={(e) => setDayOfWeek(e.target.value)}>
-                                    <option value="" selected></option>
-
-                                    <option value="Segunda-Feira">
-                                        Segunda-Feira
-                                    </option>
-                                    <option value="Terça-Feira">
-                                        Terça-Feira
-                                    </option>
-                                    <option value="Quarta-Feira">
-                                        Quarta-Feira
-                                    </option>
-                                    <option value="Quinta-Feira">
-                                        Quinta-Feira
-                                    </option>
-                                    <option value="Sexta-Feira">
-                                        Sexta-Feira
-                                    </option>
-                                    <option value="Sábado">
-                                        Sábado
-                                    </option>
-                                    <option value="Domingo">
-                                        Domingo
-                                    </option>
-                                </Select>
-                            </div>
                             
                             <div>
                                 <label htmlFor="day"><h3>Dia: *</h3></label>
+                                <p>Adicione o dia do trabalho.</p>
                                 <Input type="date" name="" id="day" onChange={(e) => setDay(e.target.value)}/>
                             </div>
 

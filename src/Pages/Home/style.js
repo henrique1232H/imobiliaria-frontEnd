@@ -80,6 +80,19 @@ export const Container = styled.div`
 
             }
         }
+
+
+        > section:nth-child(3) {
+            > div {
+                display: flex;
+                gap: 2rem;
+
+
+                @media (max-width: 1100px) {
+                    flex-direction: column;
+                }
+            }
+        }
     }
 `
 

@@ -44,11 +44,13 @@ export const Main = styled.main`
                     align-items: start;
                     width: 100%;
 
-                    @media (max-width: 800px) {
+
+                    @media (max-width: 1100px) {
                         margin-top: 1rem;
                         justify-content: start;
                         align-items: start;
                         flex-direction: column;
+                        
                     }
 
             
@@ -58,8 +60,16 @@ export const Main = styled.main`
                         align-items: center;
                         justify-content: end;
 
+                        @media (max-width: 1100px) {
+                            justify-content: start;
+                            align-items: start;
+                        }                        
                         > a {
                         padding: 1.2rem;
+                    }
+
+                    @media (max-width: 800px) {
+                        justify-content: start;
                     }
                     }
 
@@ -96,6 +106,8 @@ export const Main = styled.main`
                 
                 @media (max-width: 800px) {
                     flex-direction: column;
+                    align-items: start;
+                    
                 }
             }
 
@@ -124,7 +136,20 @@ export const Main = styled.main`
         }
         } 
     
-    
+        
+        @media (max-width: 1100px) {
+            padding: 0;
+            display: flex;
+            background: none;
+            margin: 0;
+            align-items: start;
+
+            > div {
+                width: 100%;
+                border-radius: 0;
+                background: #f9f3f3;
+            }
+        }
     }
 
 `
@@ -160,6 +185,19 @@ export const UserInteressed = styled.div`
     > div:nth-child(2) {
         display: flex;
         gap: 1rem;
+    }
+`
+export const DownloadButton = styled.button`
+    background: ${({theme}) => theme.COLOR.BLUE_100};
+    padding: 1rem;
+    border: none;
+    border-radius: 1rem;
+    transition: background 200ms ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        background: #009EE9;
+        color: #fff;
     }
 `
 

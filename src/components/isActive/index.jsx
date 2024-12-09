@@ -10,10 +10,13 @@ export default function IsActive({active, card}) {
     if(active === "is_active") {
         color = "#39fb6b";
         text = "ativo"
-    } else if (active === "waiting") {
+    } else if (active === "waiting_customer") {
         color = "#e6fe20"
         text = "Esperando o fotográfo"
-    } else {
+    } else if (active === "waiting_admin") {
+        text = "Esperando a imobiliaria"
+
+     }else {
         color = "#2a2a26"
         text = "terminado"
     }

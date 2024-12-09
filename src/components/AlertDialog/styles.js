@@ -20,9 +20,9 @@ export const Overlay = styled(AlertDialog.Overlay)`
     left: 0;
     height: 100vh;
     width: 100%;
+    z-index: 1;
     background: rgba(0,0,0,0.9);
     inset: 0;
-
 `
 
 export const Content = styled(AlertDialog.Content)`

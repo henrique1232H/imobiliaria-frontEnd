@@ -11,6 +11,15 @@ export const Container = styled(Link)`
     display: block;
     box-shadow: 1px 1px 10px 1px #000;
 
+    @media (max-width: 900px) {
+
+        
+        > div:nth-child(1) {
+            flex-direction: column;
+            align-items: start;
+        }
+    } 
+
     &:hover {
         border: 1px solid ${({theme}) =>  theme.COLOR.BLUE_200};
     }

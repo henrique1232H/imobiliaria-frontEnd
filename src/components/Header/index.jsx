@@ -5,6 +5,9 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { IoMdExit } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import Dialog from "../AlertDialog";
+import { IoMenuSharp } from "react-icons/io5";
+import { useState } from "react";
+import MenuMobile from "../MenuMobile";
 
 export default function Header() {
 
@@ -17,7 +20,7 @@ export default function Header() {
     navigate("/")
   }
 
-
+  const [menuMobile, setMenuMobile] = useState(false)
   return (
     <Container>
       <nav>
@@ -43,6 +46,7 @@ export default function Header() {
 
               <Navigation to="/add">Adicionar um novo trabalho</Navigation>
 
+
               <Navigation to="/profile">
                 <FaRegUserCircle fontSize={20} />
               </Navigation>
@@ -64,7 +68,6 @@ export default function Header() {
 
                 <Navigation to="/jobInteressed">Trabalhos que você se candidatou</Navigation>
 
-
                 <Navigation to="/profile">
                   <FaRegUserCircle fontSize={20} />
                 </Navigation>
@@ -81,6 +84,15 @@ export default function Header() {
               </li>
             )
           )}
+
+          <li>
+            <IoMenuSharp onClick={() => setMenuMobile(!menuMobile)} />
+
+            {
+              menuMobile && <MenuMobile isActive={() => setMenuMobile(!menuMobile)} />
+            }
+          </li>
+
         </ul>
       </nav>
     </Container>

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 
-import { Container, AddImages, Main, EditTags } from "./style";
+import { Container, AddImages, Main, EditTags, UploadImages } from "./style";
 
-import responsiveCarousel from "../../components/responsiveCarousel";
 import "react-multi-carousel/lib/styles.css";
 
 import Footer from "../../components/Footer";
@@ -14,17 +13,20 @@ import { FaPencil } from "react-icons/fa6";
 import { IoIosAddCircleOutline } from "react-icons/io";
 
 import { api } from "../../service/api";
-import Carousel from "react-multi-carousel";
 import EditInput from "../../components/EditInputs";
 import TagItem from "../../components/TagsItem";
 
 import Dialog from "../../components/AlertDialog";
 import { useNavigate, useParams } from "react-router-dom";
+import { USER_ROLE } from "../../utils/roles";
+import { useAuth } from "../../hooks/auth";
 
 export default function Edit() {
 
   const navigate = useNavigate();
-  const {job_id} = useParams();  
+  const {job_id} = useParams();
+  
+  const {user} = useAuth();
 
   const [title, setTitle] = useState();
   const [description, setDescription] = useState("");
@@ -46,6 +48,8 @@ export default function Edit() {
   const [newDistrict, setNewDistrict] = useState("");
   const [newState, setNewState] = useState("");
   const [newStreet, setNewStreet] = useState("");
+
+  const [header, setHeader] = useState("");
 
   const [videos, setVideos] = useState([]);
   const [removeVideos, setRemoveVideos] = useState([]);
@@ -86,8 +90,8 @@ export default function Edit() {
     async function handleImage() {
       const response = await api.get(`/file/${job_id}`, { withCredentials: true });
 
-      console.log(response.data);
 
+      setHeader(response.data[0].images[0].file)
       setVideos(response.data[0].videos);
       setImages(response.data[0].images);
     }
@@ -96,7 +100,7 @@ export default function Edit() {
     handleImage();
   }, [job_id] );
 
-  const header = images[0];
+
 
   const handleEditJob = async () => {
 
@@ -173,9 +177,6 @@ export default function Edit() {
           }
         });
       });
-
-      
-      
     };
     checkFiles();
 
@@ -214,9 +215,6 @@ export default function Edit() {
   };
 
 
-  console.log(images)
-  console.log(removeImages)
-
   const handleDeleteVideos = (videoToRemove) => {
     setVideos(videos.filter((entries) => entries !== videoToRemove));
 
@@ -250,6 +248,7 @@ export default function Edit() {
     setNewsFiles(response)
   }
   
+  console.log(user.role.includes(USER_ROLE.CUSTOMER))
 
   return (
     <Container>
@@ -262,20 +261,22 @@ export default function Edit() {
             </section>
 
             <section>
-              <figure>
-                <label>
-                  <img
-                    src={`${api.defaults.baseURL}${header}`}
-                    alt="Banner para mostrar a imagem principal da pagina"
-                  />
-                </label>
+              {images.length > 0 && (
+                <figure>
+                    <img
+                      src={`${api.defaults.baseURL}${header}`}
+                      alt="Banner para mostrar a imagem principal da pagina"
+                    />
 
-                <figcaption>Banner</figcaption>
-              </figure>
+                    <figcaption>Banner</figcaption>
+                </figure>
+                )}
             </section>
 
             <section>
-              <div>
+
+              {
+                user.role.includes(USER_ROLE.ADMIN) ? <div>
                 <EditInput
                   text={title}
                   newText={newTitle}
@@ -305,12 +306,22 @@ export default function Edit() {
                   isActive={isDescriptionActive}
                 />
               </div>
+
+              :
+              <div>
+                <h1> {title} </h1>
+                <p>{description}</p>
+              </div>
+              }
+             
             </section>
 
             <section>
-              <EditTags>
+
+              {
+                user.role.includes(USER_ROLE.ADMIN) && <EditTags>
                 <h2>
-                  Tags: <FaPencil />{" "}
+                  Tags: <FaPencil />
                 </h2>
 
                 <div>
@@ -333,9 +344,11 @@ export default function Edit() {
                   })}
                 </div>
               </EditTags>
+                
+              }
             </section>
-
-            <section>
+            {
+              user.role.includes(USER_ROLE.ADMIN) && <section>
               <h2>Localização do lugar: </h2>
 
               <ul>
@@ -422,39 +435,14 @@ export default function Edit() {
                 </li>
               </ul>
             </section>
+            }
 
-            <section>
-              <h2>Imagens:</h2>
 
-              <Carousel
-                additionalTransfrom={0}
-                arrows
-                autoPlaySpeed={3000}
-                centerMode={false}
-                className="carousel"
-                containerClass="container"
-                dotListClass=""
-                draggable
-                focusOnSelect={false}
-                infinite={false}
-                itemClass=""
-                keyBoardControl
-                minimumTouchDrag={80}
-                pauseOnHover
-                renderArrowsWhenDisabled={false}
-                renderButtonGroupOutside={false}
-                renderDotsOutside={false}
-                responsive={responsiveCarousel}
-                rewind={false}
-                rewindWithAnimation={false}
-                rtl={false}
-                shouldResetAutoplay
-                showDots={false}
-                sliderClass=""
-                slidesToSlide={1}
-                swipeable
-              >
-                <AddImages>
+            <UploadImages>
+
+              <h2>Imagens:</h2>              
+              {
+                  user.role.includes(USER_ROLE.CUSTOMER) &&  <AddImages>
                   <label htmlFor="images">
                     <h3>Adicionar novas fotos ou videos</h3>
 
@@ -474,80 +462,84 @@ export default function Edit() {
                     accept="image/* , video/* "
                   />
                 </AddImages>
-
-                {images.map((entries, key) => {
-                  return (
-                    <CarouselCard
-                      key={key}
-                      edit
-                      img={entries}
-                      remove={() => handleDeleteImage(entries)}
-                    />
-                  );
-                })}
-
-                {videos.map((entries, key) => {
-                  return (
-                    <CarouselCard
-                      key={key}
-                      edit
-                      hasVideos
-                      videos={entries}
-                      remove={() => handleDeleteVideos(entries)}
-                    />
-                  );
-                })}
-
-                {
-                    URLVideo.map((entries, key) => {
-                        return (
-                            <CarouselCard
-                                key={key}
-                                edit
-                                hasVideos
-                                URLVideo
-                                videos={entries.url}
-                                name={entries.name}
-                                remove={() => handleDeleteUrlVideos(entries)}
-                            
-                            />
-                        )
-                    })
                 }
+                <div>
 
-                {                 
-                    URLPhotos.map((entries, key) => {
-                        return (
-                            <CarouselCard
-                                key={key}
-                                edit
-                                URLImage
-                                img={entries.url}
-                                name={entries.name}
-                                remove={() => handleDeleteUrlPhotos(entries)}
-                            
-                            />
-                        )
-                    })
-                }
-              </Carousel>
-            </section>
+              {images.map((entries, key) => {
+                return (
+                  <CarouselCard
+                    key={key}
+                    edit
+                    img={entries.file}
+                    name={entries.name}
+                    remove={() => handleDeleteImage(entries)}
+                  />
+                );
+              })}
+
+              {videos.map((entries, key) => {
+                return (
+                  <CarouselCard
+                    key={key}
+                    edit
+                    hasVideos
+                    videos={entries.file}
+                    name={entries.name}
+                    remove={() => handleDeleteVideos(entries)}
+                  />
+                );
+              })}
+
+              {
+                  URLVideo.map((entries, key) => {
+                      return (
+                          <CarouselCard
+                              key={key}
+                              edit
+                              hasVideos
+                              URLVideo
+                              videos={entries.url}
+                              name={entries.name}
+                              remove={() => handleDeleteUrlVideos(entries)}
+                          
+                          />
+                      )
+                  })
+              }
+
+              {                 
+                  URLPhotos.map((entries, key) => {
+                      return (
+                          <CarouselCard
+                              key={key}
+                              edit
+                              URLImage
+                              img={entries.url}
+                              name={entries.name}
+                              remove={() => handleDeleteUrlPhotos(entries)}
+                          
+                          />
+                      )
+                  })
+              }
+                </div>
+            </UploadImages>
 
             <section>
 
               <Dialog
                   props={{color: "#14fd1b", colorButton: "#14fd1b" }}
-                  title="Quer finalizar suas mudanças?"
-                  text={"Confirmar as mudanças"}
+                  title={user.role.includes(USER_ROLE.CUSTOMER) ? "Enviar trabalho?" : "Quer finalizar suas mudanças?"}
+                  text={user.role.includes(USER_ROLE.CUSTOMER) ? "Enviar o trabalho" : "Enviar as mudanças"}
                   isActive
-                  description="Fique tranquilo, você pode mudar depois."
+                  description={user.role.includes(USER_ROLE.CUSTOMER) ?  "Após enviar o trabalho, a imobiliaria irá analisar as fotos e então aceitar o trabalho." :"Fique tranquilo, você pode mudar depois."}
                   action={handleEditJob}
-                  optionOne="Não quero mudar"
-                  optionTwo="Quero mudar"
+                  optionOne={user.role.includes(USER_ROLE.CUSTOMER) ? "Desejo revisar o trabalho." :"Não quero mudar."}
+                  optionTwo={"Quero mudar"}
               />
 
-
-              <Dialog 
+            {
+              user.role.includes(USER_ROLE.ADMIN) && <Dialog 
                 props={{color: "#ff1010", colorButton: "#ff1010"}}
                 title="Você quer realmente apagar esse trabalho?"
                 text="Apagar o trabalho"
@@ -557,6 +549,8 @@ export default function Edit() {
                 optionOne="Não quero apagar."
                 optionTwo="Entendo e quero apagar."
               />
+            }
+
                 
             </section>
           </div>

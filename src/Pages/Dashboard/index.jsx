@@ -17,15 +17,30 @@ export default function DashBoard() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        async function handleSearchJobs() {
-            const response = await api.get(`/search/user`, {withCredentials: true})
-            
-            setData(response.data);
+
+        if(user.role === "admin") {
+            async function handleSearchJobsAdmin() {
+                const response = await api.get(`/search/user`, {withCredentials: true})
+                
+                setData(response.data);
+            }
+
+            handleSearchJobsAdmin()
+        
+        } else {
+
+            async function handleSearchJobCustomer(){
+                const response = await api.get(`/search/customer`, {withCredentials: true});
+    
+                setData(response.data)
+            }
+
+            handleSearchJobCustomer()
+
         }
 
-        
-        handleSearchJobs()
     },[]);
+
 
     return (
         <Container>
@@ -38,28 +53,29 @@ export default function DashBoard() {
 
                     <div>
 
-
                         <h1>Ola, {user.name} </h1>
                         <h1>Vamos começar a trabalhar</h1>
 
-                        <h2>Seus trabalhos</h2>
+                        <h2>{user.role === "admin" ? "Seus Trabalhos" : "Trabalhos que você se candidatou"}</h2>
+                        
 
-
-                        {   
-                            data.length > 0 ?
-                            data.map((job, key) => {
-                                return <CardJobs key={key} timeout={job.entries.timeout} date={job.entries.day} price={job.entries.budget} situation={job.entries.situation} link={job.entries.id} user={user} title={job.entries.title} description={job.entries.description} street={job.entries.street} city={job.entries.city} district={job.entries.district} tags={job.tags}/>
+                        {
+                            data.length > 0 ? 
+                             data.map(({job, user}, key) => {
+                                return <CardJobs key={key} date={job.day} price={job.budget} situation={job.situation} link={job.id} user={user} title={job.title} description={job.description} street={job.street} city={job.city} district={job.district} tags={job.tags}/>
                             })
 
                             :
+
                             <EmptyJob>
                                 <h3>{user.role === USER_ROLE.ADMIN ? "Vamos adicionar alguns trabalhos" : "Vamos buscar alguns trabalhos" }  </h3>
 
                                 <BiTaskX/>
                             </EmptyJob>
+
+    
                         }
-                        
-                        
+
                     </div>
                 </Section>
             </main>

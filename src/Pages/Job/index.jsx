@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Container, Main, Title, UserInteressed } from "./style";
+import { Container, DownloadButton, Main, Title, UserInteressed } from "./style";
 
 import responsiveCarousel from "../../components/responsiveCarousel";
 import "react-multi-carousel/lib/styles.css";
@@ -29,10 +29,9 @@ import Accordion from "../../components/Accordion";
 export default function Job() {
   const { user } = useAuth();
   const { job_id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-
-  const [data, setData] = useState({})
+  const [data, setData] = useState({});
 
   const [videos, setVideos] = useState([]);
   const [isActive, setIsActive] = useState("");
@@ -43,9 +42,12 @@ export default function Job() {
 
   const [images, setImages] = useState([]);
 
+  const [header, setHeader] = useState("");
+
   const [peopleInteressed, setPeopleInteressed] = useState([]);
 
   const [isCandidate, setIsCandidate] = useState(false);
+  const [permitCustomer, setPermitCustomer] = useState(false);
 
   useEffect(() => {
     async function handleJob() {
@@ -53,8 +55,7 @@ export default function Job() {
         withCredentials: true,
       });
 
-
-      setData(response.data[0])
+      setData(response.data[0]);
       setIsActive(response.data[0].situation);
       setUserJob(response.data[1]);
       setTags(response.data[2]);
@@ -65,39 +66,48 @@ export default function Job() {
         withCredentials: true,
       });
 
+      setHeader(response.data[0].images[0].file);
+
       setVideos(response.data[0].videos);
       setImages(response.data[0].images);
     }
 
     async function handlePeopleInteressedInJob() {
-
       try {
         const response = await api.get(`/jobsInteressed/${job_id}`, {
           withCredentials: true,
         });
 
-
         setPeopleInteressed(response.data);
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     }
 
     async function checkIfUserIsAlreadyCandidate() {
-
       try {
-        const response = await api.get(`/user/candidate/${job_id}`, {withCredentials: true});
-        console.log(response)
-        setIsCandidate(response.data)
-
+        const response = await api.get(`/user/candidate/${job_id}`, {
+          withCredentials: true,
+        });
+        setIsCandidate(response.data);
       } catch (err) {
-          console.log(err.data)
+        console.log(err.data);
       }
-      
     }
 
+    async function checkIfCustomerSelectByJob() {
+      try {
+        const response = await api.get(`/user/select/${job_id}`, {
+          withCredentials: true,
+        });
+        setPermitCustomer(response.data);
+      } catch (err) {
+        console.log(err.data);
+      }
+    }
 
-    checkIfUserIsAlreadyCandidate()
+    checkIfCustomerSelectByJob();
+    checkIfUserIsAlreadyCandidate();
     handleJob();
     handleImage();
     handlePeopleInteressedInJob();
@@ -110,31 +120,37 @@ export default function Job() {
       { withCredentials: true }
     );
 
-    navigate(-1)
+    navigate(-1);
   };
 
   const handleRemoveUserInteressed = async (removeUser) => {
-
-
-    setPeopleInteressed(peopleInteressed.filter(entries => entries.name == removeUser.name))
-
-
+    setPeopleInteressed(
+      peopleInteressed.filter((entries) => entries.name == removeUser.name)
+    );
     // try {
     //     await api.delete(`/jobsInteressed/${removeUser.id}`, {withCredentials: true});
     // } catch (err) {
     //     alert(err)
     // }
-
-  }
+  };
 
   const handleAddCustomerToJob = async (userSelected) => {
-    await api.post(`/jobsInteressed/select/${job_id}`, {user_id: userSelected.user_id}, {withCredentials: true})
+    await api.post(
+      `/jobsInteressed/select/${job_id}`,
+      { user_id: userSelected.user_id },
+      { withCredentials: true }
+    );
 
-    navigate(-1)
-    
-  }
-  
-  const header = images[0];
+    navigate(-1);
+  };
+
+  const handleDoneJob = async () => {
+    await api.post(`/jobs/done/${job_id}`, { withCredentials: true });
+    navigate(-1);
+  };
+
+
+
   return (
     <Container>
       <Header />
@@ -146,25 +162,25 @@ export default function Job() {
             </section>
 
             <section>
-              <figure>
-                {images.length > 0 && (
-                  <div>
-                    <img
-                      src={`${api.defaults.baseURL}${header}`}
-                      alt="Banner para mostrar a imagem principal da pagina"
-                    />
+              {images.length > 0 && (
+                <figure>
+                  <img
+                    src={`${api.defaults.baseURL}${header}`}
+                    alt="Banner para mostrar a imagem principal da pagina"
+                  />
 
-                    <figcaption>Banner</figcaption>
-                  </div>
-                )}
-              </figure>
+                  <figcaption>Banner</figcaption>
+                </figure>
+              )}
             </section>
 
             <section>
-
               <div>
                 <div>
-                  <Title>{data.title} <IsActive active={isActive} /> - R${data.budget} </Title>
+                  <Title>
+                    {data.title} - R${data.budget}{" "}
+                    <IsActive active={isActive} />
+                  </Title>
 
                   <div>
                     <h4>
@@ -177,76 +193,78 @@ export default function Job() {
                   </div>
 
                   <div>
-                  {user.role.includes(USER_ROLE.ADMIN) && (
-                    <MenuInteressed text="Ver fotográfos interessadas">
-                      <div>
-                        <h2> Fotografos interessados </h2>
+                    {data.situation === "is_active" &&
+                
+                        (user.role.includes(USER_ROLE.ADMIN) && (
+                          <MenuInteressed text="Ver fotográfos interessadas">
+                            <div>
+                              <h2> Fotografos interessados </h2>
 
-                        {peopleInteressed.length > 0 ? (
-                          peopleInteressed.map((entries, key) => {
-                            return (
-                              <UserInteressed key={key}>
-
-                                  <div>
+                              {peopleInteressed.length > 0 ? (
+                                peopleInteressed.map((entries, key) => {
+                                  return (
+                                    <UserInteressed key={key}>
                                       <div>
+                                        <div>
                                           <IconUser />
-                                      </div>
-                                      <div>
+                                        </div>
+                                        <div>
                                           <h3> {entries.user_name} </h3>
                                           <h4>{entries.user_email}</h4>
+                                        </div>
                                       </div>
-                                  </div>
 
-                                  <div>
-                                      <Dialog
+                                      <div>
+                                        <Dialog
                                           props={{
-                                          color: "#4cafd7",
-                                          colorButton: "#14fd1b",
-                                          fontSize: 20,
+                                            color: "#4cafd7",
+                                            colorButton: "#14fd1b",
+                                            fontSize: 20,
                                           }}
                                           title={`Escolher ${entries.user_name}?`}
                                           icon={GiConfirmed}
                                           description="Apenas é permitido escolher 1(um) candidato por trabalho"
-                                          action={() => handleAddCustomerToJob(entries)}
+                                          action={() =>
+                                            handleAddCustomerToJob(entries)
+                                          }
                                           optionOne="Vou escolher outro"
                                           optionTwo="Vou escolher esse"
-                                      />
+                                        />
 
-                                      <Dialog
+                                        <Dialog
                                           props={{
-                                          color: "#e83333",
-                                          colorButton: "#e83333",
-                                          fontSize: 20
+                                            color: "#e83333",
+                                            colorButton: "#e83333",
+                                            fontSize: 20,
                                           }}
                                           title={`Remover ${entries.user_name}?`}
                                           icon={MdOutlineRemoveCircleOutline}
                                           description="Não tem como reverter sua escolha"
-                                          action={() => handleRemoveUserInteressed(entries) }
+                                          action={() =>
+                                            handleRemoveUserInteressed(entries)
+                                          }
                                           optionOne="Vou excluir outro"
                                           optionTwo="Vou excluir esse"
-                                      />
-                                  </div>
-                              </UserInteressed>
-                            );
-                          })
-                        ) : (
-                          <div>
-                            <h1>ninguém se candidatou ainda</h1>
-                          </div>
-                        )}
-                      </div>
-                    </MenuInteressed>
-                  )}
+                                        />
+                                      </div>
+                                    </UserInteressed>
+                                  );
+                                })
+                              ) : (
+                                <div>
+                                  <h1>ninguém se candidatou ainda</h1>
+                                </div>
+                              )}
+                            </div>
+                          </MenuInteressed>
+                        ))}
                   </div>
-
                 </div>
 
                 <div>
-                  {
-                    user.role.includes(USER_ROLE.CUSTOMER) &&
-                    ( 
-                      isCandidate ?
-                        <Dialog
+                  {user.role.includes(USER_ROLE.CUSTOMER) &&
+                    (isCandidate ? (
+                      <Dialog
                         props={{ color: "#4cafd7", colorButton: "#14fd1b" }}
                         title="Candidatar a vaga"
                         text={"Candidatar a vaga"}
@@ -256,19 +274,41 @@ export default function Job() {
                         optionOne="Não quero mudar"
                         optionTwo="Quero me candidatar"
                       />
-                      :
-                      <button disabled>Você já se candidatou a esse trabalho</button>
-                    )
-                  }
-            
-                  {userJob.id === user.id ? (
+                    ) : permitCustomer ? (
+                      <Link to={`/edit/${job_id}`}>Enviar trabalho</Link>
+                    ) : (
+                      <button disabled>
+                        {data.situation === "waiting_customer"
+                          ? "Espere a imobiliaria aceitar"
+                          : "Você já se candidatou a esse trabalho"}
+                      </button>
+                    ))}
+
+                  {data.situation === "waiting_customer" &&
+                    user.role.includes(USER_ROLE.ADMIN) && (
+                      <div>
+                        <Dialog
+                          props={{ color: "#14fd1b", colorButton: "#14fd1b" }}
+                          title={"Aceitar o trabalho?"}
+                          text={"Aceitar o trabalho"}
+                          description={
+                            "Após ver as fotos, você pode aceitar as fotos e o trabalho será concluido."
+                          }
+                          isActive
+                          action={handleDoneJob}
+                          optionOne={"Excluir as fotos"}
+                          optionTwo={"Aceitar as fotos"}
+                        />
+                      </div>
+                    )}
+
+                  {userJob.id === user.id && data.situation !== "is_closed" ? (
                     <Link to={`/edit/${job_id}`}>Editar trabalho</Link>
                   ) : (
                     <a href="#">Compartilhar</a>
                   )}
                 </div>
               </div>
-
 
               <p> {data.description} </p>
             </section>
@@ -285,67 +325,79 @@ export default function Job() {
               ) : (
                 <div>
                   <h4>Não foi adicionado nenhuma tag</h4>
-
                 </div>
               )}
             </section>
 
             <section>
-                <h2>Informações sobre o trabalho:</h2>
+              <h2>Informações sobre o trabalho:</h2>
 
-                <Accordion  props={data}/>
+              <Accordion props={data} />
             </section>
 
-            {
-              images.length > 0 && <section>
-              <h2>Imagens:</h2>
+            {images.length > 0 && (
+              <section>
+                <h2>Imagens:</h2>
 
-              <Carousel
-                additionalTransfrom={0}
-                arrows
-                autoPlaySpeed={3000}
-                centerMode={false}
-                className="carousel"
-                containerClass="container"
-                dotListClass=""
-                draggable
-                focusOnSelect={false}
-                infinite={false}
-                itemClass=""
-                keyBoardControl
-                minimumTouchDrag={80}
-                pauseOnHover
-                renderArrowsWhenDisabled={false}
-                renderButtonGroupOutside={false}
-                renderDotsOutside={false}
-                responsive={responsiveCarousel}
-                rewind={false}
-                rewindWithAnimation={false}
-                rtl={false}
-                shouldResetAutoplay
-                showDots={false}
-                sliderClass=""
-                slidesToSlide={1}
-                swipeable
-              >
-                {images.map((entries, key) => {
-                  return <CarouselCard key={key} img={entries} />;
-                })}
+                <Carousel
+                  additionalTransfrom={0}
+                  arrows
+                  autoPlaySpeed={3000}
+                  centerMode={false}
+                  className="carousel"
+                  containerClass="container"
+                  dotListClass=""
+                  draggable
+                  focusOnSelect={false}
+                  infinite={false}
+                  itemClass=""
+                  keyBoardControl
+                  minimumTouchDrag={80}
+                  pauseOnHover
+                  renderArrowsWhenDisabled={false}
+                  renderButtonGroupOutside={false}
+                  renderDotsOutside={false}
+                  responsive={responsiveCarousel}
+                  rewind={false}
+                  rewindWithAnimation={false}
+                  rtl={false}
+                  shouldResetAutoplay
+                  showDots={false}
+                  sliderClass=""
+                  slidesToSlide={1}
+                  swipeable
+                >
+                  {images.map((entries, key) => {
+                    return (
+                      <CarouselCard
+                        key={key}
+                        img={entries.file}
+                        name={entries.name}
+                      />
+                    );
+                  })}
 
-                {videos.map((entries, key) => {
-                  return <CarouselCard key={key} hasVideos videos={entries} />;
-                })}
-              </Carousel>
-            </section>
-            }
+                  {videos.map((entries, key) => {
+                    return (
+                      <CarouselCard
+                        key={key}
+                        hasVideos
+                        videos={entries.file}
+                        name={entries.name}
+                      />
+                    );
+                  })}
+                </Carousel>
+              </section>
+            )}
 
-
-            {
-              images.length > 0 &&  <section>
-              <button>Download dos arquivos</button>
-            </section>
-            }
-           
+            {images.length > 0 && (
+              <section>
+                <a href={`${api.defaults.baseURL}/file/download/${job_id}`}>
+                  <DownloadButton>Download dos Arquivos</DownloadButton>
+                </a>
+              </section>
+            )}
           </div>
         </SpacingBox>
       </Main>

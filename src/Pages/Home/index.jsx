@@ -7,7 +7,6 @@ import {
 } from "./style";
 import Header from "../../components/Header";
 import Section from "../../components/Section";
-import { Link } from "react-router-dom";
 import Footer from "../../components/Footer";
 
 export default function Home() {
@@ -70,7 +69,16 @@ export default function Home() {
 
         <Section>
           <div>
-            <h2>alo</h2>
+            <Image
+                src="https://picsum.photos/900/600"
+                alt=""
+              />
+
+            <div>
+              <h2>Aqui o funcionamento fácil e simples de resolver</h2>
+
+            </div>
+
           </div>
         </Section>
       </main>

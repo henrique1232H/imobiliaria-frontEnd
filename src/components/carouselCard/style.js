@@ -6,7 +6,7 @@ export const Container = styled.div`
     border-radius: 1rem;
     background: #f9f3f3;
     cursor: pointer;
-    height: 22rem;
+    height: auto;
     margin-left: 2rem;
 
     > figure {

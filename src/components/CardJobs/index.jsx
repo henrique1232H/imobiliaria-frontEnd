@@ -67,14 +67,14 @@ export default function CardJobs({title,price, timeout,date,description, street,
             } */}
 
             
-            
+{/*             
             <div>
                 {
                     tags.map(entries => {
                         return <span key={entries.id}><p> {entries.name} </p></span> 
                     })
                 }
-            </div>
+            </div> */}
 
             
         </Container>

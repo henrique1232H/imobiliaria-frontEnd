@@ -28,9 +28,29 @@ export const Container = styled.header`
                 justify-content: center;
             }
 
-            > li:last-child {
+            > li:nth-child(2) {
                 display: flex;
                 gap: 1rem;
+            }
+
+            > li:last-child {
+                display: none;
+            }
+
+            @media (max-width: 990px ) {
+
+                > li:nth-child(2) {
+                    display: none;
+                }
+
+                > li:last-child {
+                    display: flex;
+                    
+                    > svg {
+                        font-size: 3rem;
+                        cursor: pointer;
+                    }
+                }
             }
         }
     }
