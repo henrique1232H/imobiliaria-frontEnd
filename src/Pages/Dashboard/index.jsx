@@ -31,8 +31,8 @@ export default function DashBoard() {
 
             async function handleSearchJobCustomer(){
                 const response = await api.get(`/search/customer`, {withCredentials: true});
-    
-                setData(response.data)
+
+                setData(response.data.map(({job, user}) => ({entries: job, user})))
             }
 
             handleSearchJobCustomer()
@@ -61,8 +61,8 @@ export default function DashBoard() {
 
                         {
                             data.length > 0 ? 
-                             data.map(({job, user}, key) => {
-                                return <CardJobs key={key} date={job.day} price={job.budget} situation={job.situation} link={job.id} user={user} title={job.title} description={job.description} street={job.street} city={job.city} district={job.district} tags={job.tags}/>
+                             data.map(({entries, user}, key) => {
+                                return <CardJobs key={key} timeout={entries.timeout} date={entries.day} price={entries.budget} situation={entries.situation} link={entries.id} user={user} title={entries.title} description={entries.description} street={entries.street} city={entries.city} district={entries.district} tags={entries.tags}/>
                             })
 
                             :
