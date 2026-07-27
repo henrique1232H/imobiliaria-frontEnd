@@ -1,10 +1,10 @@
 import { Container } from "./style";
 
 
-export default function Button({text, onClick}) {
+export default function Button({text, onClick, type = "button"}) {
 
     return (
-        <Container onClick={onClick}>
+        <Container type={type} onClick={onClick}>
             {text}
         </Container>
     )
