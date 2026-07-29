@@ -37,6 +37,12 @@ export default function SignUp() {
     const handleCreateUser = async (e) => {
         e.preventDefault();
 
+        if(password.length < 6) {
+            setErrorName("A senha deve ter no mínimo 6 caracteres")
+            setError(!error)
+            return
+        }
+
         if(name === "" || email === "" ||password === "") {
             setErrorName("Você esqueceu de colocar os valores no campo")
             setError(!error)

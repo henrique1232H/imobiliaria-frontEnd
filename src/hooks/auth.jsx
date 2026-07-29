@@ -2,12 +2,12 @@
 import { useContext, createContext, useEffect, useState } from "react";
 import { api } from "../service/api";
 
-
 export const AuthContext = createContext({})
 
 
 function AuthProvider({children}) {
     const [data, setData] = useState({});
+
     
     
     async function signIn({email, password}) {
@@ -17,11 +17,13 @@ function AuthProvider({children}) {
             const user = response.data;
             localStorage.setItem("@fotop:user", JSON.stringify(user));
             setData({user});
+
+            return true
         } catch(err) {
             if(err.response) {
-                alert(err.response.data.message);
+                return err.response.data
             } else {
-                alert("Não foi possível entrar");
+                return err.response.data
             }
         }
     }

@@ -1,6 +1,6 @@
 import { Container, Form } from "./style";
 import InputForm from "../../components/InputForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
@@ -30,24 +30,22 @@ export default function SignUp() {
     const handleEnterUser = async (e) => {
         e.preventDefault();
 
-        if(email === "" || password === "") {
-            setError(!error);
-            setErrorName("Você esqueceu de digitar nos campos")    
-        
-           return 
+        const checkIfWork = await signIn({email, password});
+
+        if (checkIfWork.status === "error") {
+            setErrorName(checkIfWork.message);
+            setError(true);
+            return 
         }
-
-        
-
-        signIn({email, password});
+        setError(false)
         navigate("/")
 
-        
     }
 
     const handleBack = () => {
         navigate("/")
     }
+
 
     return (
         <Container>
@@ -71,10 +69,15 @@ export default function SignUp() {
 
 
                     <div>
-                        <Button onClick={ e => handleEnterUser(e)} text="Logar na conta"/>  
+                        <Button onClick={ e => {handleEnterUser(e)}} text="Logar na conta"/>  
                     </div>
                 </div>
+
+                
+                <p> Esqueceu a senha? </p>
             </Form>
+
+            
 
         </Container>
     )
