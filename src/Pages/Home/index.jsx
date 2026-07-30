@@ -41,7 +41,7 @@ export default function Home() {
                 alt="imagem ilustrativa"
               />
 
-              <figcaption>imagem ilustrativa</figcaption>
+              <figcaption>imagem ilustrativas</figcaption>
             </figure>
           </div>
         </Section>
