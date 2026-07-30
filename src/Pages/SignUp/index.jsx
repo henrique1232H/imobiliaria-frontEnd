@@ -11,6 +11,7 @@ import { FaLock } from "react-icons/fa";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import AppError from "../../components/AppError";
 import GoBack from "../../components/Back";
+import AuthLink from "../../components/AuthLink";
 
 
 
@@ -70,44 +71,49 @@ export default function SignUp() {
         }
     }
 
-    const handleBack = () => {
-        navigate("/")
-    }
-
     return (
         <Container>
 
-
             <Form>
-
 
                 {
                     error && <AppError text={errorName}/>
                 }
                 
-
-
-
-                <GoBack onClick={handleBack}/>
+                <GoBack onClick={() => navigate("/")}/>
                 <h1>fotop</h1>
                 <h2>Criar sua conta</h2>
 
                 <div>
-                    <InputForm placeholder="Seu nome..." type="text" onChange={e => setName(e.target.value)} icon={MdOutlineDriveFileRenameOutline} onClick={e => setInputName(!inputName)} onBlur={e => setInputName(!inputName)}  isActive={inputName}/>
+                    <InputForm placeholder="Seu nome..." type="text" onChange={e => setName(e.target.value)} icon={MdOutlineDriveFileRenameOutline} onClick={e => setInputName(!inputName)} onBlur={(e) => {
+                        if (inputName === true) {
+                            setInputName(!inputName)
+                        }}}  isActive={inputName}/>
                     
-                    <InputForm placeholder="Seu email..." type="email" onChange={e => setEmail(e.target.value)} icon={MdOutlineAlternateEmail} onClick={e => setInputEmail(!inputEmail)} onBlur={e => setInputEmail(!inputEmail)}  isActive={inputEmail}/>
+                    <InputForm placeholder="Seu email..." type="email" onChange={e => setEmail(e.target.value)} icon={MdOutlineAlternateEmail} onClick={e => setInputEmail(!inputEmail)} onBlur={e => {if (inputEmail === true) {
+                        setInputEmail(!inputEmail)
+                        }
+                        }}  isActive={inputEmail}/>
 
-                    <InputForm placeholder="Sua senha..." type="password" onChange={e => setPassword(e.target.value)} icon={FaLock} onClick={e => setInputPassword(!inputPassword)} onBlur={e => setInputPassword(!inputPassword)}  isActive={inputPassword}/>
+                    <InputForm placeholder="Sua senha..." type="password" onChange={e => setPassword(e.target.value)} icon={FaLock} onClick={e => setInputPassword(!inputPassword)} onBlur={e => {if(inputPassword === true) {
+                        setInputPassword(!inputPassword)
+                    }}}  isActive={inputPassword}/>
 
                     <div className="checkbox">
                         <CheckBox isActive={role} onClick={e => setRole(!role)} />
                         <label htmlFor="">{role ? "Sou uma imobiliária" : "Sou um fotografo"}</label>
                     </div>
 
+                    <div className="auth-links">
+                        <AuthLink href="/signIn">Já possui uma conta?</AuthLink>
+                        <AuthLink href="/resetPassword">Esqueceu a senha?</AuthLink>
+                    </div>
+
                     <div>
-                        <Button onClick={ e => handleCreateUser(e)} text="Criar conta"/>  
+                        <Button onClick={ e => handleCreateUser(e)} text="Criar conta"/>
                     </div>
                 </div>
+
             </Form>
 
             <div />

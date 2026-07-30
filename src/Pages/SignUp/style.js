@@ -42,6 +42,14 @@ export const Container = styled.div`
         }
     }
 
+    @media (max-height: 500px) {
+
+        > div {
+            display: none;
+            background: none;
+        }
+    }
+
     
 `
 
@@ -64,12 +72,22 @@ export const Form = styled.form`
         margin: 1rem 0;
     }
 
+    .auth-links {
+        display: flex;
+        justify-content:space-between;
+    }
+
 
     @media (max-width: 1000px) {
         width: 100%;
         height: 100vh;
         justify-content: center;
+    }
 
+    @media (max-height: 500px) {
+        width: 100%;
+        height: 100vh;
+        justify-content: center;
     }
 
 `

@@ -9,6 +9,7 @@ import { MdOutlineAlternateEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 import AppError from "../../components/AppError";
 import GoBack from "../../components/Back";
+import AuthLink from "../../components/AuthLink";
 
 
 
@@ -63,9 +64,9 @@ export default function SignUp() {
                 <h2>Logar na sua conta</h2>
 
                 <div>
-                    <InputForm placeholder="Seu email..." type="email" onChange={e => setEmail(e.target.value)} icon={MdOutlineAlternateEmail} onClick={e => setInputEmail(!inputEmail)} onBlur={e => setInputEmail(!inputEmail)}  isActive={inputEmail}/>
+                    <InputForm placeholder="Seu email..." type="email" onChange={e => setEmail(e.target.value)} icon={MdOutlineAlternateEmail} onClick={e => setInputEmail(!inputEmail)} onBlur={e => {if(inputEmail === true) {setInputEmail(!inputEmail)}}}  isActive={inputEmail}/>
 
-                    <InputForm placeholder="Sua senha..." onChange={e => setPassword(e.target.value)} icon={FaLock} onClick={e => setInputPassword(!inputPassword)} onBlur={e => setInputPassword(!inputPassword)}  isActive={inputPassword} type="password"/>
+                    <InputForm placeholder="Sua senha..." onChange={e => setPassword(e.target.value)} icon={FaLock} onClick={e => setInputPassword(!inputPassword)} onBlur={e => {if(inputPassword === true)setInputPassword(!inputPassword)}}  isActive={inputPassword} type="password"/>
 
 
                     <div>
@@ -73,8 +74,10 @@ export default function SignUp() {
                     </div>
                 </div>
 
-                
-                <p> Esqueceu a senha? </p>
+                <div className="auth-links">
+                    <AuthLink href="/resetPassword">Esqueceu a senha?</AuthLink>
+                    <AuthLink href="/register">Não possui uma conta?</AuthLink>
+                </div>
             </Form>
 
             

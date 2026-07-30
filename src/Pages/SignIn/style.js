@@ -58,6 +58,10 @@ export const Form = styled.form`
         align-items: center;
         margin: 1rem 0;
     }
+        .auth-links {
+        display: flex;
+        justify-content:space-between;
+    }
 
 
     @media (max-width: 1000px) {
