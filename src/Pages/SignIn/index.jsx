@@ -62,7 +62,6 @@ export default function SignUp() {
                 <GoBack onClick={handleBack}/>
                 <h1>fotop</h1>
                 <h2>Logar na sua conta</h2>
-
                 <div>
                     <InputForm placeholder="Seu email..." type="email" onChange={e => setEmail(e.target.value)} icon={MdOutlineAlternateEmail} onClick={e => setInputEmail(!inputEmail)} onBlur={e => {if(inputEmail === true) {setInputEmail(!inputEmail)}}}  isActive={inputEmail}/>
 
