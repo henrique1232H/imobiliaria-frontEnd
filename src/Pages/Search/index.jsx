@@ -21,6 +21,7 @@ export default function Search() {
     }, [input])
 
 
+
     return (
         <Container>
             <Header/>
@@ -34,7 +35,7 @@ export default function Search() {
                 <section>
                         {
                             data.map((job) => {
-                                return <CardJobs key={job.entries.id} timeout={job.entries.timeout} date={job.entries.day} price={job.entries.budget} situation={job.entries.situation} link={job.entries.id} user={job.user} title={job.entries.title} description={job.entries.description} street={job.entries.street} city={job.entries.city} district={job.entries.district} tags={job.tags}/>
+                                return <CardJobs key={job.entries.id} props={job.entries}/>
                             })
                         }
                 </section>

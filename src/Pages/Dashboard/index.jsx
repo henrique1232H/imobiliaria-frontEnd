@@ -62,7 +62,7 @@ export default function DashBoard() {
                         {
                             data.length > 0 ? 
                              data.map(({entries, user}, key) => {
-                                return <CardJobs key={key} timeout={entries.timeout} date={entries.day} price={entries.budget} situation={entries.situation} link={entries.id} user={user} title={entries.title} description={entries.description} street={entries.street} city={entries.city} district={entries.district} tags={entries.tags}/>
+                                return <CardJobs key={key} props={entries}/>
                             })
 
                             :

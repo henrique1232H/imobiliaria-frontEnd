@@ -8,10 +8,9 @@ import IsActive from "../isActive";
 import IconUser from "../IconUser";
 
 
-export default function CardJobs({title,price, timeout,date,description, street, city, user,district,tags, link, situation}) {
-    
-    
-    const dateJob = new Date(Number(date));
+export default function CardJobs({props}) {
+ 
+    const dateJob = new Date(Number(props.date));
 
     const hours = dateJob.getHours();
     const minutes = dateJob.getMinutes();
@@ -23,42 +22,63 @@ export default function CardJobs({title,price, timeout,date,description, street,
         correctMinutes = minutes
     }
 
+    const checkTypeOfJob = () => {
+        if (props.job === "Casa" || props.job === "Estabelecimento") {
+            return `${props.title}`
+        }
+        if (props.job === "Apartamento") {
+            return  `${props.title}, Apt ${props.apartment_number}`
+        }
+    }
+
+    const typeOfJob = checkTypeOfJob()
 
     return (
-        <Container to={`/job/${link}`}>
-            <div>
-                <h2>{title}</h2>
-                <div>
+        <Container to={`/job/${props.id}`}>
 
-                    <span>
-                        <h3>{hours}:{correctMinutes}</h3>
-                        <h3>-</h3>
-                        <h3>{timeout}</h3>
-                    </span>
+            <div className="img">
+                <span>{(props.job).toUpperCase()}</span>
+            </div>
 
-                    <h3>R$ {price}</h3>
-                    <IsActive active={situation} card />
+            <section>
+                <div className="head">
+
+                    <div>
+                        <h2>{props.district}, {props.city}</h2>
+                        <h1>{typeOfJob}</h1>
+                    </div>
+
+
+                    <div>
+                        <IsActive active={props.situation} />
+                    </div>
+
                 </div>
 
-            </div>
+                <span className="linha"/>
+                
 
-            <div className="icon">
-                {
-                    user.icon === "none" ? 
-                    <FaRegUserCircle fontSize={25} /> : 
-                    <IconUser  src={user.icon}/>
-                }
-                <h3>{user.name}</h3>
-            </div>
-            
-            <p>{description}</p>
-            
-            <ul>
-                <li><p> <strong>Rua: </strong> {street}</p></li>
-                <li><p> <strong>Cidade:</strong> {city} </p></li>
-                <li><p> <strong>Bairro: </strong>{district} </p></li>
-            </ul>
-            
+                <div>
+                    <div>
+                        <span>
+                            <h4>VALOR</h4>
+                            <h3>R${props.budget}</h3>
+                        </span>
+
+                        <span>
+                            <h4>AREA</h4>
+                        </span>
+
+                    </div>
+
+                    <button>a</button>
+                </div>
+
+
+            </section>
+
+        
+         
             {/* {
                 USER_ROLE.ADMIN === user.role &&
                 <div>
