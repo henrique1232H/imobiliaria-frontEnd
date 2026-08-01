@@ -6,21 +6,14 @@ import { Container } from "./style";
 import { USER_ROLE } from "../../utils/roles";
 import IsActive from "../isActive";
 import IconUser from "../IconUser";
+import { api } from "../../service/api";
+import { useEffect, useState } from "react";
 
 
 export default function CardJobs({props}) {
+
+    const [image, setImage] = useState([])
  
-    const dateJob = new Date(Number(props.date));
-
-    const hours = dateJob.getHours();
-    const minutes = dateJob.getMinutes();
-    let correctMinutes;
-
-    if(minutes >= 0 && minutes < 10) {
-        correctMinutes = `${minutes}0`
-    } else {
-        correctMinutes = minutes
-    }
 
     const checkTypeOfJob = () => {
         if (props.job === "Casa" || props.job === "Estabelecimento") {
@@ -31,12 +24,40 @@ export default function CardJobs({props}) {
         }
     }
 
+    const checkSituationofJob = () => {
+        if (props.situation === "is_active") {
+            return "Ver Job"
+        } if (props.situation === "is_inactive") {
+            return "Ver Fotos";
+        }
+
+        return "Ver Detalhes";
+    }
+
+    const situationOfJob = checkSituationofJob()
     const typeOfJob = checkTypeOfJob()
+
+    useEffect(() => {
+        const imgJob = async () => {
+            const response = await api.get(`/file/${props.id}`, {withCredentials: true});
+            console.log(response.data[0].images[0].file)
+            setImage(response.data[0].images[0])
+        }
+        imgJob()
+    }, [])
+
 
     return (
         <Container to={`/job/${props.id}`}>
 
             <div className="img">
+                {
+                    image.file === undefined ?
+                    <IconUser size={100} color="#ccc" />
+                    :
+                    <img src={`${api.defaults.baseURL}${image.file}`} />
+                }
+
                 <span>{(props.job).toUpperCase()}</span>
             </div>
 
@@ -58,7 +79,7 @@ export default function CardJobs({props}) {
                 <span className="linha"/>
                 
 
-                <div>
+                <div className="body">
                     <div>
                         <span>
                             <h4>VALOR</h4>
@@ -71,7 +92,11 @@ export default function CardJobs({props}) {
 
                     </div>
 
-                    <button>a</button>
+                    <button>
+                        {
+                            situationOfJob
+                        }
+                    </button>
                 </div>
 
 
