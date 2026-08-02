@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Container, DownloadButton, Main, Title, UserInteressed } from "./style";
+import { Container, DownloadButton, Main, Title, UserInteressed, JobContainer } from "./style";
 
 import responsiveCarousel from "../../components/responsiveCarousel";
 import "react-multi-carousel/lib/styles.css";
@@ -156,10 +156,11 @@ export default function Job() {
       <Header />
       <Main>
         <SpacingBox>
-          <div>
-            <section>
+            <div>
               <GoBack />
-            </section>
+              <p>Voltar para a lista de trabalhos</p>
+            </div>
+          <JobContainer>
 
             <section>
               {images.length > 0 && (
@@ -398,7 +399,7 @@ export default function Job() {
                 </a>
               </section>
             )}
-          </div>
+          </JobContainer>
         </SpacingBox>
       </Main>
 

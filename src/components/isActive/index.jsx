@@ -5,23 +5,31 @@ export default function IsActive({active, card}) {
 
     let color = "";
     let colorText = "#fff"
-    let text = ""
+    let text = "";
+    let circleColor = "";
 
     if(active === "is_active") {
-        color = "#39fb6b";
-        text = "ativo"
+        color = "#c8f7d4";
+        circleColor = "#25ef57"
+        text = "Ativo"
     } else if (active === "waiting_customer") {
         color = "#e6fe20"
+        circleColor = "#e6fe20"
         text = "Esperando o fotográfo"
     } else if (active === "waiting_admin") {
+        circleColor = "#f9a100";
         text = "Esperando a imobiliaria"
 
      }else {
-        color = "#2a2a26"
-        text = "terminado"
+        circleColor = "#2a2a26"
+        color = "#acaca7"
+        text = "Terminado"
     }
 
     return <Container card={card} style={{background: color, color: colorText}}>
-        {text}
+        <span style={{background: circleColor}}/>
+        
+        <p style={{color: circleColor}}>{text}</p>
+        
     </Container>
 }

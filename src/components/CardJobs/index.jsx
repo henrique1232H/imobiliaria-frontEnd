@@ -1,9 +1,7 @@
 /* eslint-disable react/prop-types */
 
 
-import { FaRegUserCircle } from "react-icons/fa";
 import { Container } from "./style";
-import { USER_ROLE } from "../../utils/roles";
 import IsActive from "../isActive";
 import IconUser from "../IconUser";
 import { api } from "../../service/api";
@@ -87,7 +85,7 @@ export default function CardJobs({props}) {
                         </span>
 
                         <span>
-                            <h4>AREA</h4>
+                            <h4>ÁREA</h4>
                         </span>
 
                     </div>

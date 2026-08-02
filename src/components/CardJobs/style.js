@@ -13,6 +13,7 @@ export const Container = styled(Link)`
     width: 100%;
     padding-right: 10px;
     transition: 250ms all ease-in;
+    padding-bottom: 1rem;
 
     .img {
         display: block;
@@ -62,22 +63,24 @@ export const Container = styled(Link)`
 
     > section {
         width: 100%;
+        margin-top: 2rem;
 
 
         .head {
             display: flex;
             justify-content: space-between;
             margin-top: 1rem;
+            margin-bottom: 4rem;
 
             > div:nth-child(1) {
                 > h2 {
                     font-size: 1.2rem;
-                    font-weight: 300;
+                    font-weight: 400;
                 }
 
                 > h1 {
                     font-size: 1.5rem;
-                    font-weight: 400;
+                    font-weight: 700;
 
                 }
             }
@@ -87,11 +90,12 @@ export const Container = styled(Link)`
             }
         }
 
-        > span {
+        .linha {
             display: block;
             height:10px;
-            border-bottom: 1px solid gray;
+            border-bottom: 1px solid ${({theme}) => theme.colors.quaternary[100]};
             width: 100%;
+            margin-bottom: 2rem;
         }
 
         .body {

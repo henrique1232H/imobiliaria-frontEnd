@@ -6,15 +6,26 @@ export const Container = styled.body`
     background: #f9f3f3;
 `
 
+export const JobContainer = styled.div`
+    background: yellow;
+    height: 100%;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+`
+
 export const Main = styled.main`
+
+    > div > div:nth-child(1) {
+        background: yellow;
+        display: flex;
+        align-items: center;
+    }
 
     > div {
         background: #ccc;
-        padding: 1rem 0;
-        height: 100%;
-        min-height: 90vh;
-        display: flex;
-        align-items: center;
+        padding: 2rem 0;
 
         > div {
             background: #fff;
@@ -25,6 +36,10 @@ export const Main = styled.main`
 
             > section {
                 margin-top: 1rem;
+            }
+
+            > section:nth-child(1) {
+                background: red;
             }
 
 
