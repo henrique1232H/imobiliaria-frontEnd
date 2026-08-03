@@ -17,14 +17,70 @@ export const JobContainer = styled.div`
 
 export const Main = styled.main`
 
-    > div > div:nth-child(1) {
-        background: yellow;
+
+    .back {
         display: flex;
         align-items: center;
+        gap: 1rem;
+        background: none;
+        color: ${({theme}) => theme.colors.primary[500]};
+        font-weight: 500;
+        font-size: 1.2rem;
+
+    }
+    
+    .banner {
+        width: 100%;
+        display: block;
+        flex-direction: column;
+        height: auto;
+        margin-bottom: 3rem;
+
+        .teste {
+            position: relative;
+            width: 100%;
+            min-height: 40rem;
+            overflow: hidden;
+
+            > figure {
+                position: absolute;
+                inset: 0;
+                margin: 0;
+                z-index: 0;
+                height: 100%;
+
+                > img {
+                    border-radius: 1rem;
+                    width: 100%;
+                    height: 100%;
+                    min-height: 20rem;
+                    object-fit: cover;
+                    display: block;
+                }
+            }
+
+            
+        }
+
+        > div {
+
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            
+            > div {
+                z-index: 1;
+            }
+
+            > figure > img {
+                width: 100%;
+                z-index: -1;
+            }
+        }        
     }
 
     > div {
-        background: #ccc;
+        background: ${({theme}) => theme.colors.primary[100]};
         padding: 2rem 0;
 
         > div {
@@ -32,15 +88,6 @@ export const Main = styled.main`
             border-radius: 1rem;
             padding: 1rem 2rem;
             height: auto;
-
-
-            > section {
-                margin-top: 1rem;
-            }
-
-            > section:nth-child(1) {
-                background: red;
-            }
 
 
 
@@ -155,6 +202,7 @@ export const Main = styled.main`
         @media (max-width: 1100px) {
             padding: 0;
             display: flex;
+            flex-direction: column;
             background: none;
             margin: 0;
             align-items: start;

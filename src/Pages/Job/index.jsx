@@ -25,6 +25,7 @@ import Dialog from "../../components/AlertDialog";
 import IconUser from "../../components/IconUser";
 import IsActive from "../../components/isActive";
 import Accordion from "../../components/Accordion";
+import { IoMdArrowBack } from "react-icons/io";
 
 export default function Job() {
   const { user } = useAuth();
@@ -156,22 +157,36 @@ export default function Job() {
       <Header />
       <Main>
         <SpacingBox>
-            <div>
-              <GoBack />
+            <div className="back" onClick={() => navigate(-1)} style={{cursor: "pointer", display: "flex", alignItems: "center"}}>
+              <IoMdArrowBack fontSize={20} />
+              
               <p>Voltar para a lista de trabalhos</p>
             </div>
           <JobContainer>
 
-            <section>
+            <section className="banner">
               {images.length > 0 && (
-                <figure>
-                  <img
-                    src={`${api.defaults.baseURL}${header}`}
-                    alt="Banner para mostrar a imagem principal da pagina"
-                  />
 
-                  <figcaption>Banner</figcaption>
-                </figure>
+                <div className="teste">
+
+                  <div>
+                    a
+                  </div>
+
+                  <div>
+                    <IsActive active={isActive} />
+                  </div>
+
+                  <figure>
+                    <img
+                      src={`${api.defaults.baseURL}${header}`}
+                      alt="Banner para mostrar a imagem principal da pagina"
+                    />
+
+                    <figcaption>Banner</figcaption>
+                  </figure>
+                </div>
+
               )}
             </section>
 
@@ -180,7 +195,6 @@ export default function Job() {
                 <div>
                   <Title>
                     {data.title} - R${data.budget}{" "}
-                    <IsActive active={isActive} />
                   </Title>
 
                   <div>
