@@ -5,7 +5,7 @@ export const Container = styled.header`
 
     display: flex;
     width: 100%;
-    background: #f9f3f3;
+    background: #fff;
 
     > nav {
 

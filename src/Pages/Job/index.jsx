@@ -28,6 +28,12 @@ import Accordion from "../../components/Accordion";
 import { IoMdArrowBack } from "react-icons/io";
 import TypeOfJob from "../../components/TypeOfJob";
 
+import { ImPriceTag } from "react-icons/im";
+import { CiRuler } from "react-icons/ci";
+import { FaCalendar } from "react-icons/fa";
+import { FaHouse, FaLocationDot } from "react-icons/fa6";
+
+
 export default function Job() {
   const { user } = useAuth();
   const { job_id } = useParams();
@@ -208,8 +214,60 @@ export default function Job() {
 
                   <div className="title">
                     <h1>{data.title}</h1>
-                    <h2>{data.street}, {data.district}, {data.city}</h2>
+                    <h2 style={{display: "flex", alignItems: "center"}}>
+                      <FaLocationDot  fontSize={10} style={{margin: "0 1rem 0 0", color: "#ccc" }}/>
+
+                      {data.street}, {data.district}, {data.city}</h2>
                   </div>
+
+                  <div className="information">
+                    <div>
+                        <div>
+
+                            <ImPriceTag fontSize={25} />
+                        
+                            <span>
+                              <h3>VALOR</h3>
+                              <h4>R$ {console.log(data)} {data.budget}</h4>
+                            </span>
+                        </div>
+
+
+                        <div>
+                          <FaCalendar fontSize={25}/>
+
+                          <span>
+                            <h3>DATA DE ENTRADA</h3>
+                            <h4>asas</h4>
+                          </span>
+                        </div>                        
+                        
+                    </div>
+
+                    <div>
+                        <div>
+
+                          <CiRuler fontSize={25}/> 
+
+                          <span>
+                            <h3>ÁREA</h3>
+                            <h4>asasa</h4>
+                          </span>
+                        </div>
+
+                        <div>
+                          <FaHouse fontSize={25}/>
+
+                          <span>
+                            <h3>TIPO DO IMÓVEL</h3>
+                            <h4>{data.job}</h4>
+                          </span>
+
+                        </div>
+
+                    </div>
+                  </div>
+
 
                   <div>
                     {data.situation === "is_active" &&
@@ -333,19 +391,7 @@ export default function Job() {
             </section>
 
             <section>
-              <h2>Tags:</h2>
-
-              {tags.length > 0 ? (
-                <div>
-                  {tags.map((entries) => {
-                    return <Tags key={entries.id} title={entries.name} />;
-                  })}
-                </div>
-              ) : (
-                <div>
-                  <h4>Não foi adicionado nenhuma tag</h4>
-                </div>
-              )}
+            
             </section>
 
             <section>

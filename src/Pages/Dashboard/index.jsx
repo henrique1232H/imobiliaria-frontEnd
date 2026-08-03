@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { api } from "../../service/api";
 import CardJobs from "../../components/CardJobs";
 import { USER_ROLE } from "../../utils/roles";
+import Footer from "../../components/Footer";
 
 export default function DashBoard() {
 
@@ -79,6 +80,9 @@ export default function DashBoard() {
                     </div>
                 </Section>
             </main>
+
+
+            <Footer />
 
         </Container>
     )

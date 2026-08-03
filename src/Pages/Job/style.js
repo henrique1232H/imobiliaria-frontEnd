@@ -17,6 +17,27 @@ export const JobContainer = styled.div`
 
 export const Main = styled.main`
 
+    .information {
+        margin-top: 3rem;
+        display: flex;
+        gap:2rem;
+        margin-bottom: 3rem;
+
+        > div > div {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+
+            > svg {
+                background: ${({theme}) => theme.colors.primary[100]};
+                padding: 0.4rem;
+                border-radius: 1rem;
+            }
+        }
+
+    }
+
 
     .options {
         display: flex;

@@ -2,12 +2,15 @@ import styled from "styled-components";
 
 export const Container = styled.div`
 
-    background: #f9f3f3;
-    height: 100vh;
+    background: ${({theme}) => theme.colors.primary[100]};
+    height: 100%;
+    min-height:100vh;
+    
 
 
     > main {
         margin-top: 1rem;
+        margin-bottom: 2rem;
     }
 
 `

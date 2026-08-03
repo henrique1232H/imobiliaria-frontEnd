@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled(Link)`
-    background: #fff4;
+    background: #fff;
     border-radius: 1rem;
     margin-top: 2rem;
     text-decoration: none;
