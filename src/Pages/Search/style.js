@@ -6,7 +6,8 @@ export const Container = styled.div`
 
         width: min(180rem, 70%);
         margin: 0 auto;
-        height: 82.3vh;
+        height: 100%;
+        min-height: 100vh;
         
         > section:nth-child(1) {
             margin-top: 4rem;

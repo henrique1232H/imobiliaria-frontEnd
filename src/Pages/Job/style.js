@@ -18,15 +18,69 @@ export const JobContainer = styled.div`
 export const Main = styled.main`
 
 
-    .back {
+    .options {
         display: flex;
         align-items: center;
-        gap: 1rem;
+        cursor:pointer;
         background: none;
-        color: ${({theme}) => theme.colors.primary[500]};
+        color: ${({theme}) => theme.colors.primary[300]};
         font-weight: 500;
         font-size: 1.2rem;
+        transition: 150ms all ease-in;
+        justify-content: space-between;
 
+        > div {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+    }
+
+    .back {
+        transition: 150ms all ease-in;
+    }
+
+    .buttonsOptions {
+
+        > button {
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            border: 1px solid ${({theme}) => theme.colors.primary[500]};
+            box-shadow: 0px 0px 5px 0px ${({theme}) => theme.colors.primary[300]};
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        > button:nth-child(1) {
+            background: #fff;
+            color: ${({theme}) => theme.colors.primary[700]}
+        }
+
+        > button:nth-child(2) {
+            background: #f71616;
+            color: #fff;
+        }
+    }
+
+    .title {
+        > h1 {
+            font-size: 2rem;
+            color: ${({theme}) => theme.colors.primary[700]};
+            font-weight: 600;
+        }
+
+        > h2 {
+            font-size: 1.3rem;
+            color: ${({theme}) => theme.colors.quaternary[800]};
+            font-weight: 300;
+        }
+    }
+
+    .back:hover {
+        color: ${({theme}) => theme.colors.primary[600]};
     }
     
     .banner {

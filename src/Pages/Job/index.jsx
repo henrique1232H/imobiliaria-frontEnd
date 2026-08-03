@@ -26,6 +26,7 @@ import IconUser from "../../components/IconUser";
 import IsActive from "../../components/isActive";
 import Accordion from "../../components/Accordion";
 import { IoMdArrowBack } from "react-icons/io";
+import TypeOfJob from "../../components/TypeOfJob";
 
 export default function Job() {
   const { user } = useAuth();
@@ -157,10 +158,23 @@ export default function Job() {
       <Header />
       <Main>
         <SpacingBox>
-            <div className="back" onClick={() => navigate(-1)} style={{cursor: "pointer", display: "flex", alignItems: "center"}}>
-              <IoMdArrowBack fontSize={20} />
-              
-              <p>Voltar para a lista de trabalhos</p>
+            <div className="options">
+
+              <div className="back" onClick={() => navigate(-1)}>
+                <IoMdArrowBack fontSize={20} />
+                
+                <p>Voltar para a lista de trabalhos</p>
+              </div>
+
+              {
+                user.role.includes(USER_ROLE.ADMIN) && (
+                  <div className="buttonsOptions">
+
+                    <button>Editar Job</button>
+                    <button>Excluir Job</button>
+                  </div>
+                )
+              }
             </div>
           <JobContainer>
 
@@ -169,9 +183,7 @@ export default function Job() {
 
                 <div className="teste">
 
-                  <div>
-                    a
-                  </div>
+                  <TypeOfJob props={data.job}/>
 
                   <div>
                     <IsActive active={isActive} />
@@ -193,18 +205,10 @@ export default function Job() {
             <section>
               <div>
                 <div>
-                  <Title>
-                    {data.title} - R${data.budget}{" "}
-                  </Title>
 
-                  <div>
-                    <h4>
-                      Criado por:
-                      <span>
-                        <IconUser src="http://github.com/henrique1232H.png" />
-                        {userJob.name}
-                      </span>
-                    </h4>
+                  <div className="title">
+                    <h1>{data.title}</h1>
+                    <h2>{data.street}, {data.district}, {data.city}</h2>
                   </div>
 
                   <div>

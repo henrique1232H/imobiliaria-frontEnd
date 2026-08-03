@@ -13,8 +13,8 @@ export default function IsActive({active, card}) {
         circleColor = "#25ef57"
         text = "Ativo"
     } else if (active === "waiting_customer") {
-        color = "#e6fe20"
-        circleColor = "#e6fe20"
+        color = "#eeff54"
+        circleColor = "#a0be26"
         text = "Esperando o fotográfo"
     } else if (active === "waiting_admin") {
         circleColor = "#f9a100";

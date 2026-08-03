@@ -6,6 +6,7 @@ import IsActive from "../isActive";
 import IconUser from "../IconUser";
 import { api } from "../../service/api";
 import { useEffect, useState } from "react";
+import TypeOfJob from "../TypeOfJob";
 
 
 export default function CardJobs({props}) {
@@ -56,7 +57,8 @@ export default function CardJobs({props}) {
                     <img src={`${api.defaults.baseURL}${image.file}`} />
                 }
 
-                <span>{(props.job).toUpperCase()}</span>
+                <TypeOfJob props={props.job} />
+
             </div>
 
             <section>

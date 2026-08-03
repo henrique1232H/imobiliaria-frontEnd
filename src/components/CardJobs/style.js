@@ -13,11 +13,10 @@ export const Container = styled(Link)`
     width: 100%;
     padding-right: 10px;
     transition: 250ms all ease-in;
-    padding-bottom: 1rem;
 
     .img {
         display: block;
-        height: 50%;
+        height: auto;
         min-height: 20rem;
         background: red;
         width: 30%;
@@ -33,20 +32,6 @@ export const Container = styled(Link)`
             border-radius: 1rem 0 0 1rem;
         }
 
-
-        > span {
-            position: absolute;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #fff;
-            font-weight: 600;
-            width: 10rem;
-            margin: 1rem 1rem;
-            border-radius: 5rem;
-            padding: 0.7rem 0.5rem;
-            z-index: 1;
-        }
     }
 
 

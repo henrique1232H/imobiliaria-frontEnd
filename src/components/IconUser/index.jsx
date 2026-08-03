@@ -11,7 +11,7 @@ export default function IconUser({src}) {
             <Image src={`${src}`} alt="foto do usuario"/>
 
             <FallBack delayMs={600}>
-                    TESTANDO
+
             </FallBack>
 
         </Container>
