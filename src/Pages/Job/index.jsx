@@ -242,7 +242,7 @@ export default function Job() {
                         
                             <span>
                               <h3>VALOR</h3>
-                              <h4>R$ {console.log(data)} {data.budget}</h4>
+                              <h4>{data.budget}</h4>
                             </span>
                         </div>
 
