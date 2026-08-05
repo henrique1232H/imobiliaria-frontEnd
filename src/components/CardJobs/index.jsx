@@ -7,6 +7,7 @@ import IconUser from "../IconUser";
 import { api } from "../../service/api";
 import { useEffect, useState } from "react";
 import TypeOfJob from "../TypeOfJob";
+import { MdOutlineHideImage } from "react-icons/md";
 
 
 export default function CardJobs({props}) {
@@ -52,7 +53,10 @@ export default function CardJobs({props}) {
             <div className="img">
                 {
                     image.file === undefined ?
-                    <IconUser size={100} color="#ccc" />
+                    <div>
+                        <MdOutlineHideImage fontSize={20} style={{marginBottom: "1rem"}}/>
+                        <span style={{fontSize: "0.8rem"}}>Aguardando fotos do fotógrafo</span>     
+                    </div>
                     :
                     <img src={`${api.defaults.baseURL}${image.file}`} />
                 }
@@ -101,27 +105,6 @@ export default function CardJobs({props}) {
 
 
             </section>
-
-        
-         
-            {/* {
-                USER_ROLE.ADMIN === user.role &&
-                <div>
-                    <h3>intressados:</h3>
-                </div>
-            } */}
-
-            
-{/*             
-            <div>
-                {
-                    tags.map(entries => {
-                        return <span key={entries.id}><p> {entries.name} </p></span> 
-                    })
-                }
-            </div> */}
-
-            
         </Container>
     )
 }

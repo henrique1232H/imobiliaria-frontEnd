@@ -12,16 +12,37 @@ export const Container = styled(Link)`
     gap: 3rem;
     width: 100%;
     padding-right: 10px;
-    transition: 250ms all ease-in;
+    transition: 250ms all ease-in; 
 
     .img {
         display: block;
         height: auto;
-        min-height: 20rem;
-        background: red;
+        min-height: 10rem;
+        background: ${({theme}) => theme.colors.primary[100]};
         width: 30%;
         border-radius: 1rem 0 0 1rem;
         position: relative;
+
+        > span {
+            margin-top: 1rem;
+            margin-left: 1rem;
+        }
+    
+
+        > div {
+            position: absolute;
+            color: ${({theme}) => theme.colors.primary[600]};
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%
+        }
+
+        > span {
+            z-index: 0;
+        }
 
         > img {
             position:absolute;
@@ -55,7 +76,7 @@ export const Container = styled(Link)`
             display: flex;
             justify-content: space-between;
             margin-top: 1rem;
-            margin-bottom: 4rem;
+            margin-bottom: 2rem;
 
             > div:nth-child(1) {
                 > h2 {
@@ -80,13 +101,14 @@ export const Container = styled(Link)`
             height:10px;
             border-bottom: 1px solid ${({theme}) => theme.colors.quaternary[100]};
             width: 100%;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
         }
 
         .body {
             display: flex;
             justify-content: space-between;
             margin-top: 1rem;
+            padding-bottom: 1rem;
 
             > div:nth-child(1) {
                 display: flex;
@@ -117,8 +139,8 @@ export const Container = styled(Link)`
 
         .img {
             width:100%;
-            background: yellow;
             border-radius: 1rem 1rem 1rem 1rem;
+            min-height: 18rem;
 
             > img {
                 border-radius: 1rem 1rem 1rem 1rem;

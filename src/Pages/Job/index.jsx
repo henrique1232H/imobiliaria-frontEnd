@@ -6,7 +6,7 @@ import responsiveCarousel from "../../components/responsiveCarousel";
 import "react-multi-carousel/lib/styles.css";
 
 import { GiConfirmed } from "react-icons/gi";
-import { MdOutlineRemoveCircleOutline } from "react-icons/md";
+import { MdOutlineHideImage, MdOutlineRemoveCircleOutline } from "react-icons/md";
 
 import Tags from "../../components/Tags";
 import Footer from "../../components/Footer";
@@ -30,8 +30,9 @@ import TypeOfJob from "../../components/TypeOfJob";
 
 import { ImPriceTag } from "react-icons/im";
 import { CiRuler } from "react-icons/ci";
-import { FaCalendar } from "react-icons/fa";
+import { FaCalendar, FaRegTrashAlt } from "react-icons/fa";
 import { FaHouse, FaLocationDot } from "react-icons/fa6";
+import { TiPencil } from "react-icons/ti";
 
 
 export default function Job() {
@@ -176,8 +177,14 @@ export default function Job() {
                 user.role.includes(USER_ROLE.ADMIN) && (
                   <div className="buttonsOptions">
 
-                    <button>Editar Job</button>
-                    <button>Excluir Job</button>
+                    <button>
+                      <TiPencil fontSize={12}/>
+                      Editar Job
+                    </button>
+                    <button>
+                      <FaRegTrashAlt fontSize={12}/>
+                      Excluir Job
+                    </button>
                   </div>
                 )
               }
@@ -185,7 +192,7 @@ export default function Job() {
           <JobContainer>
 
             <section className="banner">
-              {images.length > 0 && (
+              {images.length > 0 ? (
 
                 <div className="teste">
                   <div>
@@ -202,8 +209,17 @@ export default function Job() {
                     <figcaption>Banner</figcaption>
                   </figure>
                 </div>
-
-              )}
+              )
+              :
+              (
+                <div className="no-photo">
+                  <MdOutlineHideImage fontSize={20} style={{marginBottom: "1rem"}}/>
+                  <span>Aguardando fotos do fotógrafo</span>     
+                </div>
+              )
+            
+            
+            }
             </section>
 
             <section>

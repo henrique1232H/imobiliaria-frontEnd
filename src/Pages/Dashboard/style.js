@@ -9,8 +9,22 @@ export const Container = styled.div`
 
 
     > main {
-        margin-top: 1rem;
-        margin-bottom: 2rem;
+        margin: 3rem 0;
+
+        > section > div {
+            > h1 {
+                font-size: 2.6rem;
+                color: ${({theme}) => theme.colors.primary[600]};
+            }
+
+            > p {
+                font-size: 1.3rem;
+                margin: 1rem 0 0 0;
+                color: ${({theme}) => theme.colors.primary[300]}
+            }
+
+        }
+
     }
 
 `
@@ -19,7 +33,7 @@ export const Container = styled.div`
 export const EmptyJob = styled.div`
     background: #d3e0ef;
     margin-top: 3rem;
-    padding: 1rem 2rem;
+    padding: 1rem 4rem;
     border-radius: 1rem;
     display: flex;
     align-items: center;

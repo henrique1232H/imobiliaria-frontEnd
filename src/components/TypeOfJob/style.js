@@ -6,9 +6,11 @@ export const TypeOfJobContainer = styled.span`
     align-items: center;
     background: #fff;
     font-weight: 600;
-    width: 10rem;
+    width: auto;
+    max-width: 12rem;
     height: 3rem;
     border-radius: 5rem;
-    padding: 0.7rem 0.5rem;
+    padding: 0.5rem 0.5rem;
+    font-family: italic;
 
 `

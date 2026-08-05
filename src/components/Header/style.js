@@ -9,7 +9,7 @@ export const Container = styled.header`
 
     > nav {
 
-        width: min(180rem, 90%);
+        width: min(180rem, 70%);
         margin: 0 auto;
 
 

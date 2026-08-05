@@ -10,6 +10,7 @@ export const JobContainer = styled.div`
     background: yellow;
     height: 100%;
     min-height: 90vh;
+    border: 1px solid ${({theme}) => theme.colors.primary[200]};
 
     > section:nth-child(2), > section:nth-child(4) {
         padding: 0 4rem;
@@ -17,6 +18,7 @@ export const JobContainer = styled.div`
 `
 
 export const Main = styled.main`
+
 
     .information {
         margin-top: 3rem;
@@ -40,7 +42,8 @@ export const Main = styled.main`
 
     }
 
-
+    
+    
     .options {
         display: flex;
         align-items: center;
@@ -76,6 +79,7 @@ export const Main = styled.main`
             padding: 0.5rem 1rem;
             cursor: pointer;
             font-size: 1.1rem;
+            gap:1rem;
         }
 
         > button:nth-child(1) {
@@ -95,35 +99,47 @@ export const Main = styled.main`
             color: ${({theme}) => theme.colors.primary[300]};
             font-weight: 600;
         }
-
+        
         > h2 {
             font-size: 2rem;
             color: ${({theme}) => theme.colors.quaternary[800]};
             font-weight: 300;
         }
     }
-
+    
     .back:hover {
         color: ${({theme}) => theme.colors.primary[600]};
     }
     
+    
     .banner {
         width: 100%;
         margin-bottom: 3rem;
+        
+        .no-photo {
+            background: ${({theme}) => theme.colors.primary[100]};
+            color: ${({theme}) => theme.colors.primary[400]};
+            min-height: 30rem;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: 1rem 1rem 0 0;
+        }
 
         .teste {
             position: relative;
             width: 100%;
             min-height: 40rem;
             overflow: hidden;
-
+            
             > div {
                 display: flex;
                 align-items: start;
                 justify-content: space-between;
                 width: 100%;
             }
-
+            
             > figure {
                 position: absolute;
                 inset: 0;

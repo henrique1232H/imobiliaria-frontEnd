@@ -54,10 +54,10 @@ export default function DashBoard() {
 
                     <div>
 
-                        <h1>Ola, {user.name} </h1>
-                        <h1>Vamos começar a trabalhar</h1>
+                        <h1>Fila de capturas</h1>
+                        <p>Gestão de jobs ativos para fotógrafos parceiros e controle de qualidade imobiliária.</p>
 
-                        <h2>{user.role === "admin" ? "Seus Trabalhos" : "Trabalhos que você se candidatou"}</h2>
+                        <h3>{user.role === "admin" ? "Seus Trabalhos" : "Trabalhos que você se candidatou"}</h3>
                         
 
                         {
