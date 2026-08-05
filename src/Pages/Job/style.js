@@ -10,9 +10,10 @@ export const JobContainer = styled.div`
     background: yellow;
     height: 100%;
     min-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    padding-top: 1rem;
+
+    > section:nth-child(2), > section:nth-child(4) {
+        padding: 0 4rem;
+    }
 `
 
 export const Main = styled.main`
@@ -20,8 +21,9 @@ export const Main = styled.main`
     .information {
         margin-top: 3rem;
         display: flex;
-        gap:2rem;
+        gap:4rem;
         margin-bottom: 3rem;
+        background: red;
 
         > div > div {
             display: flex;
@@ -49,6 +51,7 @@ export const Main = styled.main`
         font-size: 1.2rem;
         transition: 150ms all ease-in;
         justify-content: space-between;
+        margin-bottom: 2rem;
 
         > div {
             display: flex;
@@ -88,13 +91,13 @@ export const Main = styled.main`
 
     .title {
         > h1 {
-            font-size: 2rem;
-            color: ${({theme}) => theme.colors.primary[700]};
+            font-size: 3rem;
+            color: ${({theme}) => theme.colors.primary[300]};
             font-weight: 600;
         }
 
         > h2 {
-            font-size: 1.3rem;
+            font-size: 2rem;
             color: ${({theme}) => theme.colors.quaternary[800]};
             font-weight: 300;
         }
@@ -106,9 +109,6 @@ export const Main = styled.main`
     
     .banner {
         width: 100%;
-        display: block;
-        flex-direction: column;
-        height: auto;
         margin-bottom: 3rem;
 
         .teste {
@@ -116,6 +116,13 @@ export const Main = styled.main`
             width: 100%;
             min-height: 40rem;
             overflow: hidden;
+
+            > div {
+                display: flex;
+                align-items: start;
+                justify-content: space-between;
+                width: 100%;
+            }
 
             > figure {
                 position: absolute;
@@ -154,6 +161,13 @@ export const Main = styled.main`
         }        
     }
 
+    @media (max-width: 1000px) {
+
+        > div > div {
+            padding: 2rem;
+        }
+    }
+
     > div {
         background: ${({theme}) => theme.colors.primary[100]};
         padding: 2rem 0;
@@ -161,8 +175,8 @@ export const Main = styled.main`
         > div {
             background: #fff;
             border-radius: 1rem;
-            padding: 1rem 2rem;
             height: auto;
+            
 
 
 

@@ -7,10 +7,8 @@ export const TypeOfJobContainer = styled.span`
     background: #fff;
     font-weight: 600;
     width: 10rem;
-    margin: 1rem 1rem;
     height: 3rem;
     border-radius: 5rem;
     padding: 0.7rem 0.5rem;
-    z-index: 1;
 
 `

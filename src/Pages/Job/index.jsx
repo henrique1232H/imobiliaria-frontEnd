@@ -188,10 +188,8 @@ export default function Job() {
               {images.length > 0 && (
 
                 <div className="teste">
-
-                  <TypeOfJob props={data.job}/>
-
                   <div>
+                    <TypeOfJob props={data.job}/>
                     <IsActive active={isActive} />
                   </div>
 
@@ -215,7 +213,7 @@ export default function Job() {
                   <div className="title">
                     <h1>{data.title}</h1>
                     <h2 style={{display: "flex", alignItems: "center"}}>
-                      <FaLocationDot  fontSize={10} style={{margin: "0 1rem 0 0", color: "#ccc" }}/>
+                      <FaLocationDot  fontSize={20} style={{margin: "0 1rem 0 0", color: "#ccc" }}/>
 
                       {data.street}, {data.district}, {data.city}</h2>
                   </div>
@@ -224,7 +222,7 @@ export default function Job() {
                     <div>
                         <div>
 
-                            <ImPriceTag fontSize={25} />
+                            <ImPriceTag fontSize={40} />
                         
                             <span>
                               <h3>VALOR</h3>
@@ -234,7 +232,7 @@ export default function Job() {
 
 
                         <div>
-                          <FaCalendar fontSize={25}/>
+                          <FaCalendar fontSize={40}/>
 
                           <span>
                             <h3>DATA DE ENTRADA</h3>
@@ -247,7 +245,7 @@ export default function Job() {
                     <div>
                         <div>
 
-                          <CiRuler fontSize={25}/> 
+                          <CiRuler fontSize={40}/> 
 
                           <span>
                             <h3>ÁREA</h3>
@@ -256,7 +254,7 @@ export default function Job() {
                         </div>
 
                         <div>
-                          <FaHouse fontSize={25}/>
+                          <FaHouse fontSize={40}/>
 
                           <span>
                             <h3>TIPO DO IMÓVEL</h3>
