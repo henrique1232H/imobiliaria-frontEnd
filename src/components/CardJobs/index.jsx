@@ -92,6 +92,7 @@ export default function CardJobs({props}) {
 
                         <span>
                             <h4>ÁREA</h4>
+                            <h3> {props.job} </h3>
                         </span>
 
                     </div>

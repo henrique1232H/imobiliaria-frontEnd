@@ -23,23 +23,10 @@ export const Main = styled.main`
     .information {
         margin-top: 3rem;
         display: flex;
+        justify-content: space-between;
+        width: 70%;
         gap:4rem;
-        margin-bottom: 3rem;
-        background: red;
-
-        > div > div {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-
-            > svg {
-                background: ${({theme}) => theme.colors.primary[100]};
-                padding: 0.4rem;
-                border-radius: 1rem;
-            }
-        }
-
+        margin-bottom: 1rem;
     }
 
     
@@ -95,13 +82,13 @@ export const Main = styled.main`
 
     .title {
         > h1 {
-            font-size: 3rem;
+            font-size: 2rem;
             color: ${({theme}) => theme.colors.primary[300]};
             font-weight: 600;
         }
         
         > h2 {
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: ${({theme}) => theme.colors.quaternary[800]};
             font-weight: 300;
         }
@@ -109,6 +96,19 @@ export const Main = styled.main`
     
     .back:hover {
         color: ${({theme}) => theme.colors.primary[600]};
+    }
+
+    .contact {
+        > h3 {
+            margin-bottom: 2rem;
+        }
+
+        > div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            
+        }
     }
     
     
@@ -119,7 +119,7 @@ export const Main = styled.main`
         .no-photo {
             background: ${({theme}) => theme.colors.primary[100]};
             color: ${({theme}) => theme.colors.primary[400]};
-            min-height: 30rem;
+            min-height: 25rem;
             display: flex;
             align-items: center;
             flex-direction: column;
@@ -175,6 +175,12 @@ export const Main = styled.main`
                 z-index: -1;
             }
         }        
+    }
+
+    .linha {
+        border-bottom: 1px solid #ccc;
+        height: 1rem;
+        margin-bottom: 2rem;
     }
 
     @media (max-width: 1000px) {

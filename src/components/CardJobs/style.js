@@ -110,9 +110,19 @@ export const Container = styled(Link)`
             margin-top: 1rem;
             padding-bottom: 1rem;
 
+
+
             > div:nth-child(1) {
                 display: flex;
                 gap: 2rem;
+
+                > span > h4 {
+                    font-weight: 400;
+                }
+
+                > span > h3 {
+                    color: ${({theme}) => theme.colors.primary[500]};
+                }
             }
 
             > button {

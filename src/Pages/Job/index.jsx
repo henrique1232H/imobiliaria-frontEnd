@@ -25,14 +25,15 @@ import Dialog from "../../components/AlertDialog";
 import IconUser from "../../components/IconUser";
 import IsActive from "../../components/isActive";
 import Accordion from "../../components/Accordion";
-import { IoMdArrowBack } from "react-icons/io";
+import { IoMdArrowBack, IoMdTime } from "react-icons/io";
 import TypeOfJob from "../../components/TypeOfJob";
 
 import { ImPriceTag } from "react-icons/im";
-import { CiRuler } from "react-icons/ci";
+import { CiRuler, CiUser } from "react-icons/ci";
 import { FaCalendar, FaRegTrashAlt } from "react-icons/fa";
 import { FaHouse, FaLocationDot } from "react-icons/fa6";
 import { TiPencil } from "react-icons/ti";
+import IconSvg from "../../components/iconSvg";
 
 
 export default function Job() {
@@ -229,57 +230,94 @@ export default function Job() {
                   <div className="title">
                     <h1>{data.title}</h1>
                     <h2 style={{display: "flex", alignItems: "center"}}>
-                      <FaLocationDot  fontSize={20} style={{margin: "0 1rem 0 0", color: "#ccc" }}/>
+                      <FaLocationDot  fontSize={15} style={{margin: "0 1rem 0 0", color: "#ccc" }}/>
 
                       {data.street}, {data.district}, {data.city}</h2>
                   </div>
 
                   <div className="information">
                     <div>
-                        <div>
 
-                            <ImPriceTag fontSize={40} />
-                        
+                        <IconSvg icon={ImPriceTag}>
                             <span>
                               <h3>VALOR</h3>
                               <h4>{data.budget}</h4>
                             </span>
-                        </div>
-
-
-                        <div>
-                          <FaCalendar fontSize={40}/>
-
+                        </IconSvg>
+ 
+                        <IconSvg icon={FaCalendar}>
                           <span>
                             <h3>DATA DE ENTRADA</h3>
                             <h4>asas</h4>
                           </span>
-                        </div>                        
+                        </IconSvg>                        
                         
                     </div>
 
                     <div>
-                        <div>
-
-                          <CiRuler fontSize={40}/> 
+                        <IconSvg icon={CiRuler}>
 
                           <span>
                             <h3>ÁREA</h3>
                             <h4>asasa</h4>
                           </span>
-                        </div>
+                        </IconSvg>
 
-                        <div>
-                          <FaHouse fontSize={40}/>
+                        <IconSvg icon={FaHouse}>
 
                           <span>
                             <h3>TIPO DO IMÓVEL</h3>
                             <h4>{data.job}</h4>
                           </span>
 
-                        </div>
+                        </IconSvg>
 
                     </div>
+                  </div>
+
+                  <div className={"linha"}/>
+
+                  <div className="information">
+                    <IconSvg icon={IoMdTime} color={{background: "#7DFF54", svg: "#8ffd6d"}}>
+                      <span>
+                        <h3 style={{color: "#7DFF54"}}>HORÁRIO PERMITIDO</h3>
+                        <h4>asa </h4>
+                      </span>
+                    </IconSvg>
+
+                     <IconSvg icon={IoMdTime} color={{background: "#FF5454", svg: "#f81f1f"}}>
+                      <span>
+                        <h3 style={{color: "#FF5454"}}>HORÁRIO NÃO PERMITIDO</h3>
+                        <h4>asa </h4>
+                      </span>
+                    </IconSvg>
+
+                  </div>
+
+
+                  <div className={"linha"}/>
+
+                  <div className={"contact"}>
+                    <h3>Contato do proprietário</h3>
+                    
+                    <div>
+                      <IconSvg icon={CiUser}>
+                        <span>
+                          <h3>{console.log(data)} {data.ownerName}</h3>
+                          <h4>{data.ownerNumber}</h4>
+                        </span>
+                      </IconSvg>
+
+
+                      <button>as</button>
+                    </div>
+
+                  </div>
+
+                  <div className={"linha"}/>
+
+                  <div>
+                    <h3>Candidatura à vaga</h3>
                   </div>
 
 
